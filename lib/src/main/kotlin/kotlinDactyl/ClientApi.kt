@@ -9,6 +9,6 @@ class ClientApi (baseUrl:String, apiKey:String) {
     private val baseRequest = BaseRequest(baseUrl, apiKey)
 
     fun retrieveServerByIdentifier(id:String): ClientServer {
-        return ClientServer(baseRequest.executeRequest(ClientRoutes.SERVER.serverDetails(id), null))
+        return ClientServer(baseRequest.executeRequest(ClientRoutes.SERVER.serverDetails(id), null), baseRequest)
     }
 }
