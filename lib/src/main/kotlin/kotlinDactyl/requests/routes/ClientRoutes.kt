@@ -26,11 +26,11 @@ class ClientRoutes {
             fun chmodFile(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/files/chmod", "application/json")}
         }
 
-        internal object DATABASES
+    object DATABASES
         {
-            fun listDatabases(serverId: String):RouteModel{return RouteModel("GET", "servers/${serverId}/databases", "application/json")}
+            fun listDatabases(serverId: String):RouteModel{return RouteModel("GET", "servers/${serverId}/databases?include=password", "application/json")}
             fun createDatabase(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/databases", "application/json")}
-            fun rotatePassword(serverId: String, databaseid: String):RouteModel{return RouteModel("POST", "servers/${serverId}/databases/${databaseid}/rotate-password", "application/json")}
-            fun deleteDatabase(serverId: String, databaseid: String):RouteModel{return RouteModel("DELETE", "servers/${serverId}/databases/${databaseid}", "application/json")}
+            fun rotatePassword(serverId: String, databaseId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/databases/${databaseId}/rotate-password", "application/json")}
+            fun deleteDatabase(serverId: String, databaseId: String):RouteModel{return RouteModel("DELETE", "servers/${serverId}/databases/${databaseId}", "application/json")}
         }
 }

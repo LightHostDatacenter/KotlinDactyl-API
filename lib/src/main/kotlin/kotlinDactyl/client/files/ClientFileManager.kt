@@ -8,7 +8,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.time.OffsetDateTime
 
-class ClientServerFileManager (private val server: ClientServerDetails, private val baseRequest: BaseRequest) {
+class ClientFileManager (private val server: ClientServerDetails, private val baseRequest: BaseRequest) {
 
     fun getFilesList(directory:String): MutableList<ClientFileModel> {
         val filesList : MutableList<ClientFileModel> = mutableListOf()
