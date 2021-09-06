@@ -6,7 +6,7 @@ import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 
-class BaseRequest(val baseUrl:String, val apiKey:String) {
+class BaseRequest(private val baseUrl:String, private val apiKey:String) {
 
     private val webClient = OkHttpClient()
 

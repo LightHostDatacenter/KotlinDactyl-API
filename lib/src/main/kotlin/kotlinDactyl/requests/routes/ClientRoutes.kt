@@ -6,32 +6,31 @@ class ClientRoutes {
 
     internal object SERVER
     {
-        fun serverDetails(serverid: String): RouteModel {return RouteModel("GET", "servers/${serverid}", "application/json")}
+        fun serverDetails(serverId: String): RouteModel {return RouteModel("GET", "servers/${serverId}", "application/json")}
     }
 
-    internal object FILEMANAGER
+     object FILES
         {
-            fun listfiles(serverid: String, directory: String): RouteModel {return RouteModel("GET", "servers/${serverid}/files/list?directory=${directory}", "application/json")}
-            fun getcontents(serverid: String, file:String):RouteModel{return RouteModel("GET", "servers/${serverid}/files/contents?file=${file}", "application/json")}
-            fun downloadfile(serverid: String, file: String):RouteModel{return RouteModel("GET", "servers/${serverid}/files/download?file=${file}", "application/json")}
-            fun renamefiles(serverid: String):RouteModel{return RouteModel("PUT", "servers/${serverid}/files/rename", "application/json")}
-            fun copyfile(serverid: String):RouteModel{return RouteModel("POST", "servers/${serverid}/files/copy", "application/json")}
-            fun writefile(serverid: String, file:String):RouteModel{return RouteModel("POST", "servers/${serverid}/files/write?file=${file}", "text/plain")}
-            fun compressfiles(serverid: String):RouteModel{return RouteModel("POST", "servers/${serverid}/files/compress", "application/json")}
-            fun decompressfile(serverid: String):RouteModel{return RouteModel("POST", "servers/${serverid}/files/decompress", "application/json")}
-            fun deletefiles(serverid: String):RouteModel{return RouteModel("POST", "servers/${serverid}/files/delete", "application/json")}
-            fun createfolder(serverid: String):RouteModel{return RouteModel("POST", "servers/${serverid}/files/create-folder", "application/json")}
-            fun uploadfile(serverid: String):RouteModel{return RouteModel("GET", "servers/${serverid}/files/upload", "application/json")}
-            fun uploadfilebyurl(serverid: String, directory: String, url:String):RouteModel{return RouteModel("POST", "servers/${serverid}/files/pull?directory=${directory}&url=${url}", "application/json")}
+            fun listFiles(serverId: String, directory: String): RouteModel {return RouteModel("GET", "servers/${serverId}/files/list?directory=${directory}", "application/json")}
+            fun getContents(serverId: String, file:String):RouteModel{return RouteModel("GET", "servers/${serverId}/files/contents?file=${file}", "application/json")}
+            fun downloadFile(serverId: String, file: String):RouteModel{return RouteModel("GET", "servers/${serverId}/files/download?file=${file}", "application/json")}
+            fun renameFile(serverId: String):RouteModel{return RouteModel("PUT", "servers/${serverId}/files/rename", "application/json")}
+            fun copyFile(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/files/copy", "application/json")}
+            fun writeFile(serverId: String, file:String):RouteModel{return RouteModel("POST", "servers/${serverId}/files/write?file=${file}", "text/plain")}
+            fun compressFiles(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/files/compress", "application/json")}
+            fun decompressFile(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/files/decompress", "application/json")}
+            fun deleteFiles(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/files/delete", "application/json")}
+            fun createFolder(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/files/create-folder", "application/json")}
+            fun uploadFile(serverId: String):RouteModel{return RouteModel("GET", "servers/${serverId}/files/upload", "application/json")}
+            fun uploadFileByUrl(serverId: String, directory: String, url:String):RouteModel{return RouteModel("POST", "servers/${serverId}/files/pull?directory=${directory}&url=${url}", "application/json")}
+            fun chmodFile(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/files/chmod", "application/json")}
         }
 
-        internal object DATABASEMANAGER
+        internal object DATABASES
         {
-            fun listdatabases(serverid: String):RouteModel{return RouteModel("GET", "servers/${serverid}/databases", "application/json")}
-            fun createdatabase(serverid: String):RouteModel{return RouteModel("POST", "servers/${serverid}/databases", "application/json")}
-            fun rotatepassword(serverid: String, databaseid: String):RouteModel{return RouteModel("POST", "servers/${serverid}/databases/${databaseid}/rotate-password", "application/json")}
-            fun deletedatabase(serverid: String, databaseid: String):RouteModel{return RouteModel("DELETE", "servers/${serverid}/databases/${databaseid}", "application/json")}
-
+            fun listDatabases(serverId: String):RouteModel{return RouteModel("GET", "servers/${serverId}/databases", "application/json")}
+            fun createDatabase(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/databases", "application/json")}
+            fun rotatePassword(serverId: String, databaseid: String):RouteModel{return RouteModel("POST", "servers/${serverId}/databases/${databaseid}/rotate-password", "application/json")}
+            fun deleteDatabase(serverId: String, databaseid: String):RouteModel{return RouteModel("DELETE", "servers/${serverId}/databases/${databaseid}", "application/json")}
         }
-    
 }
