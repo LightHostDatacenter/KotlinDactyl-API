@@ -20,6 +20,11 @@ repositories {
 }
 
 dependencies {
+
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+
+    implementation("org.json:json:20210307")
+
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
