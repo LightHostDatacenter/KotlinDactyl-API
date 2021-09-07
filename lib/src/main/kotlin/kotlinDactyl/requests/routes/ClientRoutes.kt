@@ -42,4 +42,14 @@ class ClientRoutes {
         fun setPrimaryAllocation(serverId: String, allocationId: Int):RouteModel{return RouteModel("POST", "servers/${serverId}/network/allocations/${allocationId}/primary", "application/json")}
         fun deleteAllocation(serverId: String, allocationId: Int):RouteModel{return RouteModel("DELETE", "servers/${serverId}/network/allocations/${allocationId}", "application/json")}
     }
+
+    object BACKUPS
+    {
+        fun listBackups(serverId: String):RouteModel{return RouteModel("GET", "servers/${serverId}/backups", "application/json")}
+        fun createBackup(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/backups", "application/json")}
+        fun getBackup(serverId: String, backupUuid:String):RouteModel{return RouteModel("GET", "servers/${serverId}/backups/${backupUuid}", "application/json")}
+        fun getBackupDownload(serverId: String, backupUuid:String):RouteModel{return RouteModel("GET", "servers/${serverId}/backups/${backupUuid}/download", "application/json")}
+        fun deleteBackup(serverId: String, backupUuid:String):RouteModel{return RouteModel("DELETE", "servers/${serverId}/backups/${backupUuid}", "application/json")}
+    }
+
 }

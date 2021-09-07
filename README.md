@@ -25,10 +25,10 @@ Server Details️| ✔️
 File Manager️| ✔️
 Database Manager️| ✔️
 Network Manager️| ✔️
+Backup Manager️| ✔️
 Console️|  ❌️️
 Schedule manager️|  ❌️️
 Subuser manager️|  ❌️️
-Backup manager️|  ❌️️
 Startup manager️|  ❌️️
 Settings manager️|  ❌️️
 Power actions ️|  ❌️️
