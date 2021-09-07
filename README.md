@@ -27,10 +27,10 @@ Database Manager️| ✔️
 Network Manager️| ✔️
 Backup Manager️| ✔️
 Power actions ️| ✔️
+Startup manager ️| ✔️
 Console️|  ❌️️
 Schedule manager️|  ❌️️
 Subuser manager️|  ❌️️
-Startup manager️|  ❌️️
 Settings manager️|  ❌️️
 Account manager |  ❌️️
 
