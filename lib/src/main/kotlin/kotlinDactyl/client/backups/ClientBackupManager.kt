@@ -24,6 +24,12 @@ class ClientBackupManager(private val server : ClientServerDetails, private val 
         ).getJSONObject("attributes").toString())
     }
 
+    fun toggleLock(uuid: String): ClientBackupModel {
+        return ClientBackupParser.parse( JSONObject(
+            baseRequest.executeRequest(ClientRoutes.BACKUPS.toggleLock(server.identifier,uuid), "")
+        ).getJSONObject("attributes").toString())
+    }
+
     fun createBackup(name:String, ignoredFiles:List<String>?, isLocked:Boolean): ClientBackupModel {
         var json = JSONObject().accumulate("name", name).accumulate("is_locked", isLocked)
         if(!ignoredFiles.isNullOrEmpty()){

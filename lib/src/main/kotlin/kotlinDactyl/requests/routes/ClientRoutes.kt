@@ -47,6 +47,7 @@ class ClientRoutes {
     {
         fun listBackups(serverId: String):RouteModel{return RouteModel("GET", "servers/${serverId}/backups", "application/json")}
         fun createBackup(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/backups", "application/json")}
+        fun toggleLock(serverId: String, backupUuid: String):RouteModel{return RouteModel("POST", "servers/${serverId}/backups/${backupUuid}/lock", "application/json")}
         fun getBackup(serverId: String, backupUuid:String):RouteModel{return RouteModel("GET", "servers/${serverId}/backups/${backupUuid}", "application/json")}
         fun getBackupDownload(serverId: String, backupUuid:String):RouteModel{return RouteModel("GET", "servers/${serverId}/backups/${backupUuid}/download", "application/json")}
         fun deleteBackup(serverId: String, backupUuid:String):RouteModel{return RouteModel("DELETE", "servers/${serverId}/backups/${backupUuid}", "application/json")}
