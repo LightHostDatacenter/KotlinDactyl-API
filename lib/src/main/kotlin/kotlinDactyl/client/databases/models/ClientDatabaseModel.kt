@@ -7,5 +7,4 @@ data class ClientDatabaseModel(
     val name:String,
     val username:String,
     val allowedRemote:String,
-    val maxConnections:Int,
     val password:String)
