@@ -28,10 +28,10 @@ Network Manager️| ✔️
 Backup Manager️| ✔️
 Power actions ️| ✔️
 Startup manager ️| ✔️
+Settings manager ️| ✔️
 Console️|  ❌️️
 Schedule manager️|  ❌️️
 Subuser manager️|  ❌️️
-Settings manager️|  ❌️️
 Account manager |  ❌️️
 
 </td><td>
