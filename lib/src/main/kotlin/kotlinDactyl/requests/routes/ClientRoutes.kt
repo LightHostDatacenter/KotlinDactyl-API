@@ -57,4 +57,10 @@ class ClientRoutes {
         fun setServerPower(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/power", "application/json")}
     }
 
+    object STARTUP
+    {
+        fun listVariables(serverId: String):RouteModel{return RouteModel("GET", "servers/${serverId}/startup", "application/json")}
+        fun updateVariable(serverId: String):RouteModel{return RouteModel("PUT", "servers/${serverId}/startup/variable", "application/json")}
+    }
+
 }
