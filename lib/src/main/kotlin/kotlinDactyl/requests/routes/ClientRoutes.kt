@@ -33,4 +33,13 @@ class ClientRoutes {
             fun rotatePassword(serverId: String, databaseId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/databases/${databaseId}/rotate-password", "application/json")}
             fun deleteDatabase(serverId: String, databaseId: String):RouteModel{return RouteModel("DELETE", "servers/${serverId}/databases/${databaseId}", "application/json")}
         }
+
+    object NETWORK
+    {
+        fun listAllocations(serverId: String):RouteModel{return RouteModel("GET", "servers/${serverId}/network/allocations", "application/json")}
+        fun assignAllocation(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/network/allocations", "application/json")}
+        fun setAllocationNote(serverId: String, allocationId: Int):RouteModel{return RouteModel("POST", "servers/${serverId}/network/allocations/${allocationId}", "application/json")}
+        fun setPrimaryAllocation(serverId: String, allocationId: Int):RouteModel{return RouteModel("POST", "servers/${serverId}/network/allocations/${allocationId}/primary", "application/json")}
+        fun deleteAllocation(serverId: String, allocationId: Int):RouteModel{return RouteModel("DELETE", "servers/${serverId}/network/allocations/${allocationId}", "application/json")}
+    }
 }

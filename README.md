@@ -24,9 +24,9 @@ Feature | Status |
 Server Details️| ✔️
 File Manager️| ✔️
 Database Manager️| ✔️
+Network Manager️| ✔️
 Console️|  ❌️️
 Schedule manager️|  ❌️️
-Network manager️|  ❌️️
 Subuser manager️|  ❌️️
 Backup manager️|  ❌️️
 Startup manager️|  ❌️️
