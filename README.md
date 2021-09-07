@@ -23,6 +23,7 @@ Feature | Status |
 :---:| ---
 Server Details️| ✔️
 File Manager️| ✔️
+Database Manager️| ✔️
 Console️|  ❌️️
 Schedule manager️|  ❌️️
 Network manager️|  ❌️️
