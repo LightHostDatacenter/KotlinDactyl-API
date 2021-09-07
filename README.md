@@ -26,12 +26,12 @@ File Manager️| ✔️
 Database Manager️| ✔️
 Network Manager️| ✔️
 Backup Manager️| ✔️
+Power actions ️| ✔️
 Console️|  ❌️️
 Schedule manager️|  ❌️️
 Subuser manager️|  ❌️️
 Startup manager️|  ❌️️
 Settings manager️|  ❌️️
-Power actions ️|  ❌️️
 Account manager |  ❌️️
 
 </td><td>

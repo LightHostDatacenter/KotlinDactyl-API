@@ -52,4 +52,9 @@ class ClientRoutes {
         fun deleteBackup(serverId: String, backupUuid:String):RouteModel{return RouteModel("DELETE", "servers/${serverId}/backups/${backupUuid}", "application/json")}
     }
 
+    object POWER
+    {
+        fun setServerPower(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/power", "application/json")}
+    }
+
 }
