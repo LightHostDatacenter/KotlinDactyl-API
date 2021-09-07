@@ -64,4 +64,10 @@ class ClientRoutes {
         fun updateVariable(serverId: String):RouteModel{return RouteModel("PUT", "servers/${serverId}/startup/variable", "application/json")}
     }
 
+    object SETTINGS
+    {
+        fun renameServer(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/settings/rename", "application/json")}
+        fun reinstallServer(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/settings/reinstall", "application/json")}
+    }
+
 }
