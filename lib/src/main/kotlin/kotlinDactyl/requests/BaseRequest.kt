@@ -11,6 +11,10 @@ class BaseRequest(private val baseUrl:String, private val apiKey:String) {
     private val webClient = OkHttpClient()
 
     fun executeRequest(routeModel:RouteModel, json:String?):String {
+        var jsonBody = json
+        if(json == null){
+            jsonBody = ""
+        }
 
         val request : Request
 
@@ -19,7 +23,7 @@ class BaseRequest(private val baseUrl:String, private val apiKey:String) {
                 .url(baseUrl + routeModel.endpoint)
                 .addHeader("Authorization", "Bearer $apiKey")
                 .addHeader("Accept", "application/json")
-                .put(json!!.toRequestBody(routeModel.contentType.toMediaType()))
+                .put(jsonBody!!.toRequestBody(routeModel.contentType.toMediaType()))
                 .build()
         }
         else if (routeModel.type == "POST"){
@@ -27,7 +31,7 @@ class BaseRequest(private val baseUrl:String, private val apiKey:String) {
                 .url(baseUrl + routeModel.endpoint)
                 .addHeader("Authorization", "Bearer $apiKey")
                 .addHeader("Accept", "application/json")
-                .post(json!!.toRequestBody(routeModel.contentType.toMediaType()))
+                .post(jsonBody!!.toRequestBody(routeModel.contentType.toMediaType()))
                 .build()
         }
         else if (routeModel.type == "DELETE"){
@@ -35,7 +39,7 @@ class BaseRequest(private val baseUrl:String, private val apiKey:String) {
                 .url(baseUrl + routeModel.endpoint)
                 .addHeader("Authorization", "Bearer $apiKey")
                 .addHeader("Accept", "application/json")
-                .delete()
+                .delete(jsonBody!!.toRequestBody(routeModel.contentType.toMediaType()))
                 .build()
         }
         else{

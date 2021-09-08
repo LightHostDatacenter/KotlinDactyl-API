@@ -1,4 +1,4 @@
-package kotlinDactyl.client.settings
+package kotlinDactyl.client.serversettings
 
 import kotlinDactyl.client.details.ClientServerDetails
 import kotlinDactyl.requests.BaseRequest
