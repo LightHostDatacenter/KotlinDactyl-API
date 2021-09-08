@@ -6,7 +6,7 @@ import kotlinDactyl.client.details.ClientServerDetails
 import kotlinDactyl.client.files.ClientFileManager
 import kotlinDactyl.client.network.ClientNetworkManager
 import kotlinDactyl.client.poweractions.ClientPowerManager
-import kotlinDactyl.client.settings.ClientServerSettingsManager
+import kotlinDactyl.client.serversettings.ClientServerSettingsManager
 import kotlinDactyl.client.startup.ClientStartupManager
 import kotlinDactyl.requests.BaseRequest
 import org.json.JSONObject

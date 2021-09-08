@@ -70,4 +70,17 @@ class ClientRoutes {
         fun reinstallServer(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/settings/reinstall", "application/json")}
     }
 
+    object ACCOUNT
+    {
+        fun getDetails():RouteModel{return RouteModel("GET", "account", "application/json")}
+        fun get2FADetails():RouteModel{return RouteModel("GET", "account/two-factor", "application/json")}
+        fun enable2FA():RouteModel{return RouteModel("POST", "account/two-factor", "application/json")}
+        fun disable2FA():RouteModel{return RouteModel("DELETE", "account/two-factor", "application/json")}
+        fun updateEmail():RouteModel{return RouteModel("PUT", "account/email", "application/json")}
+        fun updatePassword():RouteModel{return RouteModel("PUT", "account/password", "application/json")}
+        fun getApiKeys():RouteModel{return RouteModel("GET", "account/api-keys", "application/json")}
+        fun createApiKey():RouteModel{return RouteModel("POST", "account/api-keys", "application/json")}
+        fun deleteApiKey(keyId:String):RouteModel{return RouteModel("DELETE", "account/api-keys/${keyId}", "application/json")}
+    }
+
 }
