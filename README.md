@@ -30,8 +30,8 @@ Power actions ️| ✔️
 Startup manager ️| ✔️
 Settings manager ️| ✔️
 Account manager ️| ✔️
+Schedule manager ️| ✔️
 Console️|  ❌️️
-Schedule manager️|  ❌️️
 Subuser manager️|  ❌️️
 
 </td><td>
