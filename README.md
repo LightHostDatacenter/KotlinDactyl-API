@@ -31,8 +31,8 @@ Startup manager ️| ✔️
 Settings manager ️| ✔️
 Account manager ️| ✔️
 Schedule manager ️| ✔️
+Subuser manager️| ✔️
 Console️|  ❌️️
-Subuser manager️|  ❌️️
 
 </td><td>
 

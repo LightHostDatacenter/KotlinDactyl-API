@@ -4,10 +4,19 @@ import kotlinDactyl.requests.routes.models.RouteModel
 
 class ClientRoutes {
 
-    internal object SERVER
+    object SERVER
     {
         fun getServer(serverId: String): RouteModel {return RouteModel("GET", "servers/${serverId}", "application/json")}
         fun getServers(): RouteModel {return RouteModel("GET", "", "application/json")}
+    }
+
+    object SUBUSERS
+    {
+        fun listSubUsers(serverId: String): RouteModel {return RouteModel("GET", "servers/${serverId}/users", "application/json")}
+        fun getSubUser(serverId: String, uuid:String): RouteModel {return RouteModel("GET", "servers/${serverId}/users/${uuid}", "application/json")}
+        fun createSubUser(serverId: String): RouteModel {return RouteModel("POST", "servers/${serverId}/users", "application/json")}
+        fun updateSubUser(serverId: String, uuid:String): RouteModel {return RouteModel("POST", "servers/${serverId}/users/${uuid}", "application/json")}
+        fun deleteSubUser(serverId: String, uuid:String): RouteModel {return RouteModel("DELETE", "servers/${serverId}/users/${uuid}", "application/json")}
     }
 
      object FILES
