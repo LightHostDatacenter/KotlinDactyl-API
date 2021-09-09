@@ -6,7 +6,8 @@ class ClientRoutes {
 
     internal object SERVER
     {
-        fun serverDetails(serverId: String): RouteModel {return RouteModel("GET", "servers/${serverId}", "application/json")}
+        fun getServer(serverId: String): RouteModel {return RouteModel("GET", "servers/${serverId}", "application/json")}
+        fun getServers(): RouteModel {return RouteModel("GET", "", "application/json")}
     }
 
      object FILES
