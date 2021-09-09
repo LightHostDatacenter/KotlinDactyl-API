@@ -2,6 +2,7 @@ package kotlinDactyl
 
 import kotlinDactyl.client.ClientServer
 import kotlinDactyl.client.account.ClientAccountManager
+import kotlinDactyl.client.subusers.models.ClientSubUserModel
 import kotlinDactyl.requests.BaseRequest
 import kotlinDactyl.requests.RouteModels.ClientRoutes
 import org.json.JSONObject
