@@ -83,4 +83,17 @@ class ClientRoutes {
         fun deleteApiKey(keyId:String):RouteModel{return RouteModel("DELETE", "account/api-keys/${keyId}", "application/json")}
     }
 
+    object SCHEDULES
+    {
+        fun getSchedules(serverId: String):RouteModel{return RouteModel("GET", "servers/${serverId}/schedules", "application/json")}
+        fun getSchedule(serverId: String, id:Int):RouteModel{return RouteModel("GET", "servers/${serverId}/schedules/${id}", "application/json")}
+        fun createSchedule(serverId: String):RouteModel{return RouteModel("POST", "servers/${serverId}/schedules", "application/json")}
+        fun updateSchedule(serverId: String, id:Int):RouteModel{return RouteModel("POST", "servers/${serverId}/schedules/${id}", "application/json")}
+        fun deleteSchedule(serverId: String, id:Int):RouteModel{return RouteModel("DELETE", "servers/${serverId}/schedules/${id}", "application/json")}
+        fun createTask(serverId: String, id:Int):RouteModel{return RouteModel("POST", "servers/${serverId}/schedules/${id}/tasks", "application/json")}
+        fun updateTask(serverId: String, scheduleId:Int, taskId:Int):RouteModel{return RouteModel("POST", "servers/${serverId}/schedules/${scheduleId}/tasks/${taskId}", "application/json")}
+        fun deleteTask(serverId: String, scheduleId:Int, taskId:Int):RouteModel{return RouteModel("DELETE", "servers/${serverId}/schedules/${scheduleId}/tasks/${taskId}", "application/json")}
+
+    }
+
 }

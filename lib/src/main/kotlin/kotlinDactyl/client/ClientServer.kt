@@ -6,6 +6,7 @@ import kotlinDactyl.client.details.ClientServerDetails
 import kotlinDactyl.client.files.ClientFileManager
 import kotlinDactyl.client.network.ClientNetworkManager
 import kotlinDactyl.client.poweractions.ClientPowerManager
+import kotlinDactyl.client.schedules.ClientScheduleManager
 import kotlinDactyl.client.serversettings.ClientServerSettingsManager
 import kotlinDactyl.client.startup.ClientStartupManager
 import kotlinDactyl.requests.BaseRequest
@@ -23,5 +24,6 @@ class ClientServer (jsonResponse:String, baseRequest:BaseRequest) {
     val powerManager = ClientPowerManager(server, baseRequest)
     val startupManager = ClientStartupManager(server, baseRequest)
     val settings = ClientServerSettingsManager(server, baseRequest)
+    val scheduleManager = ClientScheduleManager(server, baseRequest)
 
 }
