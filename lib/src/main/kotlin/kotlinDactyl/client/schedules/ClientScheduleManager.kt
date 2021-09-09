@@ -11,13 +11,17 @@ import java.time.OffsetDateTime
 
 class ClientScheduleManager( private val server: ClientServerDetails, private val baseRequest: BaseRequest) {
 
-    fun retrieveSchedules(): List<ClientScheduleModel> {
+    fun retrieveSchedules(): List<ClientScheduleModel>? {
         val list:MutableList<ClientScheduleModel> = mutableListOf()
         JSONObject(baseRequest.executeRequest(ClientRoutes.SCHEDULES.getSchedules(server.identifier), null)).getJSONArray("data").forEach {
             it as JSONObject
             list.add(parseClientSchedule(it.getJSONObject("attributes").toString()))
         }
-        return list
+        return if(list.isEmpty()){
+            null
+        } else {
+            list
+        }
     }
 
     fun retrieveSchedulesById(id:Int): ClientScheduleModel {
