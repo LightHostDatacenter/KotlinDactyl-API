@@ -10,6 +10,11 @@ class ClientRoutes {
         fun getServers(): RouteModel {return RouteModel("GET", "", "application/json")}
     }
 
+    object CONSOLE
+    {
+        fun getDetails(serverId: String): RouteModel {return RouteModel("GET", "servers/${serverId}/websocket", "application/json")}
+    }
+
     object SUBUSERS
     {
         fun listSubUsers(serverId: String): RouteModel {return RouteModel("GET", "servers/${serverId}/users", "application/json")}

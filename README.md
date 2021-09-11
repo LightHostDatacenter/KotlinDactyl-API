@@ -32,7 +32,7 @@ Settings manager ️| ✔️
 Account manager ️| ✔️
 Schedule manager ️| ✔️
 Subuser manager️| ✔️
-Console️|  ❌️️
+Console websocket️| ✔️
 
 </td><td>
 

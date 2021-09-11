@@ -1,6 +1,8 @@
 package kotlinDactyl.client
 
 import kotlinDactyl.client.backups.ClientBackupManager
+import kotlinDactyl.client.console.ConsoleHandler
+import kotlinDactyl.client.console.ConsoleWebSocket
 import kotlinDactyl.client.databases.ClientDatabaseManager
 import kotlinDactyl.client.details.ClientServerDetails
 import kotlinDactyl.client.files.ClientFileManager
@@ -13,7 +15,7 @@ import kotlinDactyl.client.subusers.ClientSubUsersManager
 import kotlinDactyl.requests.BaseRequest
 import org.json.JSONObject
 
-class ClientServer (jsonResponse:String, baseRequest:BaseRequest) {
+class ClientServer (jsonResponse:String, private val baseRequest:BaseRequest) {
 
     private val server = ClientServerDetails(JSONObject(jsonResponse).getJSONObject("attributes"))
 
@@ -27,5 +29,9 @@ class ClientServer (jsonResponse:String, baseRequest:BaseRequest) {
     val settings = ClientServerSettingsManager(server, baseRequest)
     val scheduleManager = ClientScheduleManager(server, baseRequest)
     val subUserManager = ClientSubUsersManager(server, baseRequest)
+
+    fun getConsoleInstance(handlerClass:ConsoleHandler): ConsoleWebSocket {
+        return ConsoleWebSocket(this, baseRequest, handlerClass)
+    }
 
 }
