@@ -85,7 +85,7 @@ class ClientFileManager (private val server: ClientServerDetails, private val ba
                 json.getString("name"),
                 json.getString("mode"),
                 json.getString("mode_bits"),
-                json.getInt("size"),
+                json.getLong("size"),
                 json.getBoolean("is_file"),
                 json.getBoolean("is_symlink"),
                 json.getString("mimetype"),

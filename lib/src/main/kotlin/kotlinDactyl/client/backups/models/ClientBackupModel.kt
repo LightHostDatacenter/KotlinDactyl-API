@@ -1,6 +1,7 @@
 package kotlinDactyl.client.backups.models
 
 import java.time.OffsetDateTime
+import kotlinDactyl.helpers.DataTransformers.SizeTransform
 
 data class ClientBackupModel(
     val uuid:String,
