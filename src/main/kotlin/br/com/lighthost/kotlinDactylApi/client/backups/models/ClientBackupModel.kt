@@ -1,5 +1,6 @@
 package br.com.lighthost.kotlinDactylApi.client.backups.models
 
+import br.com.lighthost.kotlinDactylApi.client.backups.actions.BackupActions
 import java.time.OffsetDateTime
 
 data class ClientBackupModel(
@@ -11,4 +12,5 @@ data class ClientBackupModel(
     val checksum: String?,
     val bytes:Long,
     val createdAt:OffsetDateTime,
-    val completedAt: OffsetDateTime?)
+    val completedAt: OffsetDateTime?,
+    val actions: BackupActions)
