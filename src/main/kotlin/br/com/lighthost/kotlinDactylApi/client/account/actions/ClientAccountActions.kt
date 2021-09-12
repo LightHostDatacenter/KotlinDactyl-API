@@ -1,10 +1,8 @@
 package br.com.lighthost.kotlinDactylApi.client.account.actions
 
-import br.com.lighthost.kotlinDactylApi.client.account.models.ClientApiKeyModel
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
-import br.com.lighthost.kotlinDactylApi.requests.RouteModels.ClientRoutes
+import br.com.lighthost.kotlinDactylApi.requests.routes.ClientRoutes
 import org.json.JSONObject
-import java.time.OffsetDateTime
 
 class ClientAccountActions(private val baseRequest: BaseRequest) {
 
