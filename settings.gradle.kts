@@ -8,4 +8,4 @@
  */
 
 rootProject.name = "KotlinDactyl-API"
-include("lib")
+include("src")
