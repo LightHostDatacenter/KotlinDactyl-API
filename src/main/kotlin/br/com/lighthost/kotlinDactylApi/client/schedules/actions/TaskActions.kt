@@ -16,12 +16,12 @@ class TaskActions(private val server: ClientServerDetails, private val baseReque
             .accumulate("time_offset", taskUpdate.timeOffset)
             .accumulate("continue_on_failure", taskUpdate.continueOnFailure)
         return ClientScheduleManager(server, baseRequest).parseClientTask(
-            JSONObject(baseRequest.executeRequest(ClientRoutes.SCHEDULES.updateTask(server.identifier, scheduleId, taskId),
+            JSONObject(baseRequest.executeRequest(ClientRoutes.SCHEDULES.updateTask(server.attributes.identifier, scheduleId, taskId),
                 json.toString())).getJSONObject("attributes").toString(), scheduleId)
     }
 
     fun delete(){
-        baseRequest.executeRequest(ClientRoutes.SCHEDULES.deleteTask(server.identifier, scheduleId, taskId), null)
+        baseRequest.executeRequest(ClientRoutes.SCHEDULES.deleteTask(server.attributes.identifier, scheduleId, taskId), null)
     }
 
 }

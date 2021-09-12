@@ -12,7 +12,7 @@ class ClientSubUsersManager(private val server: ClientServerDetails, private val
 
     fun retrieveSubUsers(): MutableList<ClientSubUserModel> {
         val list:MutableList<ClientSubUserModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.SUBUSERS.listSubUsers(server.identifier), null)).getJSONArray("data").forEach{
+        JSONObject(baseRequest.executeRequest(ClientRoutes.SUBUSERS.listSubUsers(server.attributes.identifier), null)).getJSONArray("data").forEach{
             it as JSONObject
              list.add(parseClientSubUser(it.getJSONObject("attributes").toString()))
         }
@@ -21,14 +21,14 @@ class ClientSubUsersManager(private val server: ClientServerDetails, private val
 
     fun retrieveSubUser(uuid:String):ClientSubUserModel{
         return parseClientSubUser(JSONObject(baseRequest.executeRequest(
-            ClientRoutes.SUBUSERS.getSubUser(server.identifier, uuid), null))
+            ClientRoutes.SUBUSERS.getSubUser(server.attributes.identifier, uuid), null))
             .getJSONObject("attributes").toString())
     }
 
     fun createSubUser(email:String, permissions:List<String>):ClientSubUserModel{
         val json = JSONObject().accumulate("email", email).accumulate("permissions", permissions)
         return parseClientSubUser(JSONObject(baseRequest.executeRequest(
-            ClientRoutes.SUBUSERS.createSubUser(server.identifier), json.toString()))
+            ClientRoutes.SUBUSERS.createSubUser(server.attributes.identifier), json.toString()))
             .getJSONObject("attributes").toString())
     }
 

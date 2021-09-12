@@ -9,16 +9,16 @@ class ClientBackupActions(private val server: ClientServerDetails, private val b
 
     fun toggleLock(): Boolean {
         return  JSONObject(
-            baseRequest.executeRequest(ClientRoutes.BACKUPS.toggleLock(server.identifier,uuid), "")
+            baseRequest.executeRequest(ClientRoutes.BACKUPS.toggleLock(server.attributes.identifier,uuid), "")
         ).getJSONObject("attributes").getBoolean("is_locked")
     }
 
     fun getDownloadLink(): String {
-        return JSONObject(baseRequest.executeRequest(ClientRoutes.BACKUPS.getBackupDownload(server.identifier, uuid), null)).getJSONObject("attributes").getString("url")
+        return JSONObject(baseRequest.executeRequest(ClientRoutes.BACKUPS.getBackupDownload(server.attributes.identifier, uuid), null)).getJSONObject("attributes").getString("url")
     }
 
     fun delete(){
-        baseRequest.executeRequest(ClientRoutes.BACKUPS.deleteBackup(server.identifier, uuid), null)
+        baseRequest.executeRequest(ClientRoutes.BACKUPS.deleteBackup(server.attributes.identifier, uuid), null)
     }
 
 }

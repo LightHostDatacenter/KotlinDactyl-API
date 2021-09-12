@@ -12,7 +12,7 @@ class ClientBackupManager(private val server : ClientServerDetails, private val 
 
     fun retrieveBackups():List<ClientBackupModel>{
         val list:MutableList<ClientBackupModel> = mutableListOf()
-         JSONObject(baseRequest.executeRequest(ClientRoutes.BACKUPS.listBackups(server.identifier), null)).getJSONArray("data").forEach {
+         JSONObject(baseRequest.executeRequest(ClientRoutes.BACKUPS.listBackups(server.attributes.identifier), null)).getJSONArray("data").forEach {
              it as JSONObject
             list.add(clientBackupParser(it.getJSONObject("attributes").toString(), server, baseRequest))
         }
@@ -21,7 +21,7 @@ class ClientBackupManager(private val server : ClientServerDetails, private val 
 
     fun retrieveBackup(uuid:String):ClientBackupModel{
         return clientBackupParser( JSONObject(
-            baseRequest.executeRequest(ClientRoutes.BACKUPS.getBackup(server.identifier,uuid), null)
+            baseRequest.executeRequest(ClientRoutes.BACKUPS.getBackup(server.attributes.identifier,uuid), null)
         ).getJSONObject("attributes").toString(), server, baseRequest)
     }
 
@@ -33,7 +33,7 @@ class ClientBackupManager(private val server : ClientServerDetails, private val 
             json = json.accumulate("ignored", ignoredListString)
         }
         return clientBackupParser( JSONObject(
-            baseRequest.executeRequest(ClientRoutes.BACKUPS.createBackup(server.identifier), json.toString())
+            baseRequest.executeRequest(ClientRoutes.BACKUPS.createBackup(server.attributes.identifier), json.toString())
         ).getJSONObject("attributes").toString(), server, baseRequest)
     }
 

@@ -11,7 +11,7 @@ class ClientDatabaseManager (private val server : ClientServerDetails, private v
 
     fun retrieveDatabases():List<ClientDatabaseModel>{
         val list:MutableList<ClientDatabaseModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.DATABASES.listDatabases(server.identifier), null))
+        JSONObject(baseRequest.executeRequest(ClientRoutes.DATABASES.listDatabases(server.attributes.identifier), null))
             .getJSONArray("data").forEach{
                 it as JSONObject
                 list.add(clientDatabaseParser(it.getJSONObject("attributes").toString()))
@@ -26,7 +26,7 @@ class ClientDatabaseManager (private val server : ClientServerDetails, private v
     fun createDatabase(name:String, allowedNetwork:String): ClientDatabaseModel{
         val json = JSONObject().accumulate("database", name).accumulate("remote", allowedNetwork)
         return clientDatabaseParser(JSONObject
-            (baseRequest.executeRequest(ClientRoutes.DATABASES.createDatabase(server.identifier),
+            (baseRequest.executeRequest(ClientRoutes.DATABASES.createDatabase(server.attributes.identifier),
             json.toString())).getJSONObject("attributes").toString())
     }
 

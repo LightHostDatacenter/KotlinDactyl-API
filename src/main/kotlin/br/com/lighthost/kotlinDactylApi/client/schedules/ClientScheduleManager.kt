@@ -13,7 +13,7 @@ class ClientScheduleManager( private val server: ClientServerDetails, private va
 
     fun retrieveSchedules(): List<ClientScheduleModel>? {
         val list:MutableList<ClientScheduleModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.SCHEDULES.getSchedules(server.identifier), null)).getJSONArray("data").forEach {
+        JSONObject(baseRequest.executeRequest(ClientRoutes.SCHEDULES.getSchedules(server.attributes.identifier), null)).getJSONArray("data").forEach {
             it as JSONObject
             list.add(parseClientSchedule(it.getJSONObject("attributes").toString()))
         }
@@ -26,7 +26,7 @@ class ClientScheduleManager( private val server: ClientServerDetails, private va
 
     fun retrieveSchedulesById(id:Int): ClientScheduleModel {
         return parseClientSchedule(JSONObject(baseRequest.executeRequest(
-            ClientRoutes.SCHEDULES.getSchedule(server.identifier, id), null))
+            ClientRoutes.SCHEDULES.getSchedule(server.attributes.identifier, id), null))
             .getJSONObject("attributes").toString())
     }
 
@@ -40,7 +40,7 @@ class ClientScheduleManager( private val server: ClientServerDetails, private va
             .accumulate("day_of_month", schedule.cron.dayOfMonth)
             .accumulate("only_when_online", schedule.onlyWhenOnline)
         return parseClientSchedule(JSONObject(baseRequest.executeRequest(
-            ClientRoutes.SCHEDULES.createSchedule(server.identifier), json.toString()))
+            ClientRoutes.SCHEDULES.createSchedule(server.attributes.identifier), json.toString()))
             .getJSONObject("attributes").toString())
     }
 

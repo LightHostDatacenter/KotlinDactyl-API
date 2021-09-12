@@ -10,7 +10,7 @@ class ClientStartupManager(private val server: ClientServerDetails, private val 
 
     fun getVariablesList():List<EnviromentVariableModel>{
         val list: MutableList<EnviromentVariableModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.STARTUP.listVariables(server.identifier), null)).getJSONArray("data").forEach {
+        JSONObject(baseRequest.executeRequest(ClientRoutes.STARTUP.listVariables(server.attributes.identifier), null)).getJSONArray("data").forEach {
             it as JSONObject
             list.add(ClientVariableParser.parse(it.getJSONObject("attributes").toString()))
         }
@@ -24,7 +24,7 @@ class ClientStartupManager(private val server: ClientServerDetails, private val 
     fun updateVariable(variableName:String, variableValue:String): EnviromentVariableModel {
         val json = JSONObject().accumulate("key", variableName).accumulate("value", variableValue)
         return ClientVariableParser.parse(
-            JSONObject(baseRequest.executeRequest(ClientRoutes.STARTUP.updateVariable(server.identifier),json.toString()))
+            JSONObject(baseRequest.executeRequest(ClientRoutes.STARTUP.updateVariable(server.attributes.identifier),json.toString()))
                 .getJSONObject("attributes").toString())
     }
 

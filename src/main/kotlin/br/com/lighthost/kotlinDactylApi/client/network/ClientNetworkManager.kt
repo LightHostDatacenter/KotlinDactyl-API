@@ -10,7 +10,7 @@ class ClientNetworkManager(private val server: ClientServerDetails, private val 
 
     fun getAllocations(): List<ClientAllocationModel> {
         val list:MutableList<ClientAllocationModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.NETWORK.listAllocations(server.identifier), null)).getJSONArray("data").forEach {
+        JSONObject(baseRequest.executeRequest(ClientRoutes.NETWORK.listAllocations(server.attributes.identifier), null)).getJSONArray("data").forEach {
             it as JSONObject
             list.add(ClientNetworkManagerParser.parse(it.getJSONObject("attributes").toString()))
         }
@@ -22,24 +22,24 @@ class ClientNetworkManager(private val server: ClientServerDetails, private val 
     }
 
     fun assignNewAllocation(): ClientAllocationModel {
-        return ClientNetworkManagerParser.parse(JSONObject(baseRequest.executeRequest(ClientRoutes.NETWORK.assignAllocation(server.identifier), ""))
+        return ClientNetworkManagerParser.parse(JSONObject(baseRequest.executeRequest(ClientRoutes.NETWORK.assignAllocation(server.attributes.identifier), ""))
             .getJSONObject("attributes").toString())
     }
 
     fun setAllocationNote(id:Int, note:String): ClientAllocationModel {
         val json = JSONObject().accumulate("notes", note)
         return ClientNetworkManagerParser.parse(JSONObject(
-            baseRequest.executeRequest(ClientRoutes.NETWORK.setAllocationNote(server.identifier, id), json.toString())
+            baseRequest.executeRequest(ClientRoutes.NETWORK.setAllocationNote(server.attributes.identifier, id), json.toString())
         ).getJSONObject("attributes").toString())
     }
 
     fun setPrimaryAllocation(id:Int):ClientAllocationModel{
-        return ClientNetworkManagerParser.parse(JSONObject(baseRequest.executeRequest(ClientRoutes.NETWORK.setPrimaryAllocation(server.identifier, id), ""))
+        return ClientNetworkManagerParser.parse(JSONObject(baseRequest.executeRequest(ClientRoutes.NETWORK.setPrimaryAllocation(server.attributes.identifier, id), ""))
             .getJSONObject("attributes").toString())
     }
 
     fun deleteAllocation(id:Int){
-        baseRequest.executeRequest(ClientRoutes.NETWORK.deleteAllocation(server.identifier, id), null)
+        baseRequest.executeRequest(ClientRoutes.NETWORK.deleteAllocation(server.attributes.identifier, id), null)
     }
 
     object ClientNetworkManagerParser {

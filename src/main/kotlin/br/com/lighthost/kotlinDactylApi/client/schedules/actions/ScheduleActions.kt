@@ -17,7 +17,7 @@ class ScheduleActions(private val server: ClientServerDetails, private val baseR
             .accumulate("time_offset", task.timeOffset)
             .accumulate("continue_on_failure", task.continueOnFailure)
         return ClientScheduleManager(server, baseRequest).parseClientTask(JSONObject(
-            baseRequest.executeRequest(ClientRoutes.SCHEDULES.createTask(server.identifier, scheduleId),
+            baseRequest.executeRequest(ClientRoutes.SCHEDULES.createTask(server.attributes.identifier, scheduleId),
                 json.toString())).getJSONObject("attributes").toString(), scheduleId)
     }
 
@@ -30,11 +30,11 @@ class ScheduleActions(private val server: ClientServerDetails, private val baseR
             .accumulate("month", updateModel.cron.month)
             .accumulate("day_of_month", updateModel.cron.dayOfMonth)
             .accumulate("only_when_online", updateModel.onlyWhenOnline)
-        baseRequest.executeRequest(ClientRoutes.SCHEDULES.updateSchedule(server.identifier, scheduleId),json.toString())
+        baseRequest.executeRequest(ClientRoutes.SCHEDULES.updateSchedule(server.attributes.identifier, scheduleId),json.toString())
     }
 
     fun delete(){
-        baseRequest.executeRequest(ClientRoutes.SCHEDULES.deleteSchedule(server.identifier, scheduleId), null)
+        baseRequest.executeRequest(ClientRoutes.SCHEDULES.deleteSchedule(server.attributes.identifier, scheduleId), null)
     }
 
 }

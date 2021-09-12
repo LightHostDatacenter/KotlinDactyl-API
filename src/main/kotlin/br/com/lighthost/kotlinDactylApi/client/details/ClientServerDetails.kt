@@ -1,34 +1,42 @@
 package br.com.lighthost.kotlinDactylApi.client.details
 
-import br.com.lighthost.kotlinDactylApi.client.details.models.ClientFeatureLimitsModel
-import br.com.lighthost.kotlinDactylApi.client.details.models.ClientLimitsModel
-import br.com.lighthost.kotlinDactylApi.client.details.models.ClientSftpDetailsModel
+import br.com.lighthost.kotlinDactylApi.client.details.models.ClientServerFeatureLimitsModel
+import br.com.lighthost.kotlinDactylApi.client.details.models.ClientServerLimitsModel
+import br.com.lighthost.kotlinDactylApi.client.details.models.ClientServerAttributesModel
+import br.com.lighthost.kotlinDactylApi.client.details.models.ClientServerSftpDetailsModel
 import org.json.JSONObject
 
-class ClientServerDetails(rawJson : JSONObject){
+class ClientServerDetails(rootJson : JSONObject){
 
-    val isSuspended = rawJson.getBoolean("is_suspended")
-    val isInstalling = rawJson.getBoolean("is_installing")
-    val isOwner:Boolean = rawJson.getBoolean("server_owner")
-    val identifier:String = rawJson.getString("identifier")
-    val uuid:String = rawJson.getString("identifier")
-    val name:String = rawJson.getString("uuid")
-    val node:String = rawJson.getString("name")
+    private val metaObject = rootJson.optJSONObject("meta")
+    private val attributesObject: JSONObject = rootJson.getJSONObject("attributes")
 
-    val sftpDetails = ClientSftpDetailsModel(
-        rawJson.getJSONObject("sftp_details").getString("ip"),
-        rawJson.getJSONObject("sftp_details").getInt("port"))
+    val attributes = ClientServerAttributesModel(
+        attributesObject.getBoolean("is_suspended"),
+        attributesObject.getBoolean("is_installing"),
+        attributesObject.getBoolean("server_owner"),
+        attributesObject.getString("identifier"),
+        attributesObject.getString("uuid"),
+        attributesObject.getString("name"),
+        attributesObject.getString("node"),
+        attributesObject.getString("description"),
+        attributesObject.getInt("internal_id"),
+        metaObject?.getJSONArray("user_permissions")?.toList()?.map { it as String })
 
-    val limits = ClientLimitsModel(
-        rawJson.getJSONObject("limits").getInt("memory"),
-        rawJson.getJSONObject("limits").getInt("swap"),
-        rawJson.getJSONObject("limits").getInt("disk"),
-        rawJson.getJSONObject("limits").getInt("io"),
-        rawJson.getJSONObject("limits").getInt("cpu"))
+    val sftpDetails = ClientServerSftpDetailsModel(
+        attributesObject.getJSONObject("sftp_details").getString("ip"),
+        attributesObject.getJSONObject("sftp_details").getInt("port"))
 
-    val featureLimits = ClientFeatureLimitsModel(
-        rawJson.getJSONObject("feature_limits").getInt("databases"),
-        rawJson.getJSONObject("feature_limits").getInt("allocations"),
-        rawJson.getJSONObject("feature_limits").getInt("backups"))
+    val limits = ClientServerLimitsModel(
+        attributesObject.getJSONObject("limits").getInt("memory"),
+        attributesObject.getJSONObject("limits").getInt("swap"),
+        attributesObject.getJSONObject("limits").getInt("disk"),
+        attributesObject.getJSONObject("limits").getInt("io"),
+        attributesObject.getJSONObject("limits").getInt("cpu"))
+
+    val featureLimits = ClientServerFeatureLimitsModel(
+        attributesObject.getJSONObject("feature_limits").getInt("databases"),
+        attributesObject.getJSONObject("feature_limits").getInt("allocations"),
+        attributesObject.getJSONObject("feature_limits").getInt("backups"))
 
 }

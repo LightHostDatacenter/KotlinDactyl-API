@@ -9,22 +9,22 @@ class ClientPowerManager (private val server : ClientServerDetails, private val 
 
     fun start(){
         val json = JSONObject().accumulate("signal", "start")
-        baseRequest.executeRequest(ClientRoutes.POWER.setServerPower(server.identifier), json.toString())
+        baseRequest.executeRequest(ClientRoutes.POWER.setServerPower(server.attributes.identifier), json.toString())
     }
 
     fun stop(){
         val json = JSONObject().accumulate("signal", "stop")
-        baseRequest.executeRequest(ClientRoutes.POWER.setServerPower(server.identifier), json.toString())
+        baseRequest.executeRequest(ClientRoutes.POWER.setServerPower(server.attributes.identifier), json.toString())
     }
 
     fun restart(){
         val json = JSONObject().accumulate("signal", "restart")
-        baseRequest.executeRequest(ClientRoutes.POWER.setServerPower(server.identifier), json.toString())
+        baseRequest.executeRequest(ClientRoutes.POWER.setServerPower(server.attributes.identifier), json.toString())
     }
 
     fun kill(){
         val json = JSONObject().accumulate("signal", "kill")
-        baseRequest.executeRequest(ClientRoutes.POWER.setServerPower(server.identifier), json.toString())
+        baseRequest.executeRequest(ClientRoutes.POWER.setServerPower(server.attributes.identifier), json.toString())
     }
 
 }

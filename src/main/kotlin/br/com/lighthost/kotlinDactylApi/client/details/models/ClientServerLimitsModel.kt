@@ -1,6 +1,6 @@
 package br.com.lighthost.kotlinDactylApi.client.details.models
 
-data class ClientLimitsModel(
+data class ClientServerLimitsModel(
     val memory:Int,
     val swap:Int,
     val disk:Int,

@@ -17,7 +17,7 @@ import org.json.JSONObject
 
 class ClientServer (jsonResponse:String, private val baseRequest:BaseRequest) {
 
-    private val server = ClientServerDetails(JSONObject(jsonResponse).getJSONObject("attributes"))
+    private val server = ClientServerDetails(JSONObject(jsonResponse))
 
     val details: ClientServerDetails = server
     val fileManager = ClientFileManager(server, baseRequest)

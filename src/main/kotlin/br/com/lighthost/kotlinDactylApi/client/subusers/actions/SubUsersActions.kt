@@ -9,11 +9,11 @@ class SubUsersActions (private val server: ClientServerDetails, private val base
 
     fun updatePermissions(newPermissions:List<String>){
         val json = JSONObject().accumulate("permissions", newPermissions)
-        baseRequest.executeRequest(ClientRoutes.SUBUSERS.updateSubUser(server.identifier, userUuid), json.toString())
+        baseRequest.executeRequest(ClientRoutes.SUBUSERS.updateSubUser(server.attributes.identifier, userUuid), json.toString())
     }
 
     fun delete(){
-        baseRequest.executeRequest(ClientRoutes.SUBUSERS.deleteSubUser(server.identifier, userUuid), null)
+        baseRequest.executeRequest(ClientRoutes.SUBUSERS.deleteSubUser(server.attributes.identifier, userUuid), null)
     }
 
 }

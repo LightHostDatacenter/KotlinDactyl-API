@@ -27,7 +27,7 @@ class ConsoleWebSocket(private val server: ClientServer, private val baseRequest
     private data class WebSocketDetailsModel(var token:String, var socketUrl:String)
 
     private fun getWssDetails():WebSocketDetailsModel{
-       val response = JSONObject(baseRequest.executeRequest(ClientRoutes.CONSOLE.getDetails(server.details.identifier), null)).getJSONObject("data")
+       val response = JSONObject(baseRequest.executeRequest(ClientRoutes.CONSOLE.getDetails(server.details.attributes.identifier), null)).getJSONObject("data")
         return WebSocketDetailsModel(response.getString("token"), response.getString("socket"))
     }
 

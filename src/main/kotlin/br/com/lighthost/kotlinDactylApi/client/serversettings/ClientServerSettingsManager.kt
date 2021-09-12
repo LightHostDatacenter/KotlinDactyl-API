@@ -9,11 +9,11 @@ class ClientServerSettingsManager(private val server : ClientServerDetails, priv
 
     fun renameServer(name:String){
         val json = JSONObject().accumulate("name", name)
-        baseRequest.executeRequest(ClientRoutes.SETTINGS.renameServer(server.identifier), json.toString())
+        baseRequest.executeRequest(ClientRoutes.SETTINGS.renameServer(server.attributes.identifier), json.toString())
     }
 
     fun reinstallServer(){
-        baseRequest.executeRequest(ClientRoutes.SETTINGS.reinstallServer(server.identifier), "")
+        baseRequest.executeRequest(ClientRoutes.SETTINGS.reinstallServer(server.attributes.identifier), "")
     }
 
 }
