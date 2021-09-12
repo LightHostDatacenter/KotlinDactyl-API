@@ -10,18 +10,19 @@ import java.time.OffsetDateTime
 
 class ClientFileManager (private val server: ClientServerDetails, private val baseRequest: BaseRequest) {
 
-    fun getFilesList(directory:String): MutableList<ClientFileModel> {
+    fun retrieveFiles(directory:String): MutableList<ClientFileModel> {
         val filesList : MutableList<ClientFileModel> = mutableListOf()
         JSONObject(baseRequest.executeRequest(ClientRoutes.FILES.listFiles(server.attributes.identifier, directory), null)).getJSONArray("data").forEach{
-            it as JSONObject; filesList.add(ClientFileManagerParser.parse(it.getJSONObject("attributes").toString()))
-        }; return filesList
+            it as JSONObject; filesList.add(clientFileManagerParser(it.getJSONObject("attributes")))
+        }
+        return filesList
     }
 
-    fun getFileContent(filePath:String): String {
+    fun retrieveFileContent(filePath:String): String {
         return baseRequest.executeRequest(ClientRoutes.FILES.getContents(server.attributes.identifier, filePath), null)
     }
 
-    fun getFileDownloadLink(filePath: String) : String{
+    fun retrieveFileDownloadUrl(filePath: String) : String{
         return JSONObject(baseRequest.executeRequest(ClientRoutes.FILES.downloadFile(server.attributes.identifier, filePath), null)).getJSONObject("attributes").getString("url")
     }
 
@@ -41,10 +42,10 @@ class ClientFileManager (private val server: ClientServerDetails, private val ba
 
     fun compressFiles(rootDir: String, files: HashSet<String>): ClientFileModel {
         val json = JSONObject().accumulate("root", rootDir).accumulate("files", files)
-        return ClientFileManagerParser.parse(
+        return clientFileManagerParser(
             JSONObject(
                 baseRequest.executeRequest(ClientRoutes.FILES.compressFiles(server.attributes.identifier), json.toString())
-            ).getJSONObject("attributes").toString())
+            ).getJSONObject("attributes"))
     }
 
     fun decompressFile(rootDir: String, filePath: String){
@@ -62,7 +63,7 @@ class ClientFileManager (private val server: ClientServerDetails, private val ba
         baseRequest.executeRequest(ClientRoutes.FILES.createFolder(server.attributes.identifier), json.toString())
     }
 
-    fun getUploadUrl(): String {
+    fun retrieveUploadUrl(): String {
         return JSONObject(baseRequest.executeRequest(ClientRoutes.FILES.uploadFile(server.attributes.identifier), null))
             .getJSONObject("attributes").getString("url")
     }
@@ -78,8 +79,7 @@ class ClientFileManager (private val server: ClientServerDetails, private val ba
         baseRequest.executeRequest(ClientRoutes.FILES.chmodFile(server.attributes.identifier), json.toString())
     }
 
-    object ClientFileManagerParser {
-        fun parse(rawJson : String):ClientFileModel{
+        private fun clientFileManagerParser(rawJson : JSONObject):ClientFileModel{
             val json = JSONObject(rawJson)
             return ClientFileModel(
                 json.getString("name"),
@@ -92,6 +92,5 @@ class ClientFileManager (private val server: ClientServerDetails, private val ba
                 OffsetDateTime.parse(json.getString("created_at")),
                 OffsetDateTime.parse(json.getString("modified_at")))
         }
-    }
 
 }
