@@ -1,6 +1,6 @@
 package br.com.lighthost.kotlinDactylApi.client.backups
 
-import br.com.lighthost.kotlinDactylApi.client.backups.actions.BackupActions
+import br.com.lighthost.kotlinDactylApi.client.backups.actions.ClientBackupActions
 import br.com.lighthost.kotlinDactylApi.client.backups.models.ClientBackupModel
 import br.com.lighthost.kotlinDactylApi.client.details.ClientServerDetails
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
@@ -8,7 +8,7 @@ import br.com.lighthost.kotlinDactylApi.requests.RouteModels.ClientRoutes
 import org.json.JSONObject
 import java.time.OffsetDateTime
 
-open class ClientBackupManager(private val server : ClientServerDetails, private val baseRequest: BaseRequest) {
+class ClientBackupManager(private val server : ClientServerDetails, private val baseRequest: BaseRequest) {
 
     fun retrieveBackups():List<ClientBackupModel>{
         val list:MutableList<ClientBackupModel> = mutableListOf()
@@ -49,7 +49,7 @@ open class ClientBackupManager(private val server : ClientServerDetails, private
             json.getLong("bytes"),
             OffsetDateTime.parse(json.getString("created_at")),
             (if (json.get("completed_at").toString() != "null") { OffsetDateTime.parse(json.getString("completed_at")) } else{null}),
-            BackupActions(server, baseRequest,json.getString("uuid"))
+            ClientBackupActions(server, baseRequest,json.getString("uuid"))
         )
     }
 

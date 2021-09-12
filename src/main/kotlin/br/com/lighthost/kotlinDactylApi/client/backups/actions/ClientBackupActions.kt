@@ -5,7 +5,7 @@ import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 import br.com.lighthost.kotlinDactylApi.requests.RouteModels.ClientRoutes
 import org.json.JSONObject
 
-class BackupActions(private val server: ClientServerDetails, private val baseRequest: BaseRequest, private val uuid:String) {
+class ClientBackupActions(private val server: ClientServerDetails, private val baseRequest: BaseRequest, private val uuid:String) {
 
     fun toggleLock(): Boolean {
         return  JSONObject(
