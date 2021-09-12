@@ -1,4 +1,4 @@
-[version]: https://shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo.devops.lighthost.com.br%2Frepository%2Fsnapshots%2Fbr%2Fcom%2Flighthost%2FKotlinDactyl-API%2Fmaven-metadata.xml&color=informational&label=Latest
+[version]: https://shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Frepo.devops.lighthost.com.br%2Frepository%2Fsnapshots%2Fbr%2Fcom%2Flighthost%2FKotlinDactyl-API%2Fmaven-metadata.xml&color=informational&label=latest
 [jenkins]: https://jenkins.devops.lighthost.com.br/job/KotlinDactyl-API/
 [jenkins-shield]: https://img.shields.io/badge/Download-Jenkins-orange.svg
 
