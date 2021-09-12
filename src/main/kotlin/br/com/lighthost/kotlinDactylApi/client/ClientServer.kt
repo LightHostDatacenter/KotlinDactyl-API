@@ -30,7 +30,7 @@ class ClientServer (jsonResponse:String, private val baseRequest:BaseRequest) {
     val scheduleManager = ClientScheduleManager(server, baseRequest)
     val subUserManager = ClientSubUsersManager(server, baseRequest)
 
-    fun getConsoleInstance(handlerClass:ConsoleHandler): ConsoleWebSocket {
+    fun createConsoleInstance(handlerClass:ConsoleHandler): ConsoleWebSocket {
         return ConsoleWebSocket(this, baseRequest, handlerClass)
     }
 
