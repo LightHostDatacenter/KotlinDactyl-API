@@ -75,11 +75,10 @@ The version shold used **without v prefix**
 </dependency>
 ```
 ```xml
-<dependency>
-    <groupId>br.com.lighthost</groupId>
-    <artifactId>KotlinDactyl-API</artifactId>
-    <version>VERSION</version>
-</dependency>
+<repository>
+    <id>lighthost-repository</id>
+    <url>https://repo.devops.lighthost.com.br/repository/snapshots</url>
+</repository>
 ```
 
 **Gradle**
