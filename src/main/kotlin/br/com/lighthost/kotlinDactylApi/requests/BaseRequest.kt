@@ -35,6 +35,14 @@ class BaseRequest(private val baseUrl:String, private val apiKey:String) {
                 .post(jsonBody!!.toRequestBody(routeModel.contentType.toMediaType()))
                 .build()
         }
+        else if (routeModel.type == "PATCH"){
+            request = Request.Builder()
+                .url(baseUrl + routeModel.endpoint)
+                .addHeader("Authorization", "Bearer $apiKey")
+                .addHeader("Accept", "application/json")
+                .patch(jsonBody!!.toRequestBody(routeModel.contentType.toMediaType()))
+                .build()
+        }
         else if (routeModel.type == "DELETE"){
             request = Request.Builder()
                 .url(baseUrl + routeModel.endpoint)
