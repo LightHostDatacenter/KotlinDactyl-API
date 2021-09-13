@@ -46,7 +46,7 @@ Console websocket️| ✔️
 
 Feature | Status |
 :---:| ---
-User manager️|  ❌️️
+User manager️| ✔️
 Node manager️|  ❌️️
 Allocation manager️|  ❌️️
 Location manager️|  ❌️️
