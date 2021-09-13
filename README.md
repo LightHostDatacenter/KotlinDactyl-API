@@ -61,6 +61,10 @@ Egg manager️|  ❌️️
 ## Dowload ![version][]
 The version shold used **without v prefix**
 
+Another dependencies:
+**okhttp 4.9.1** |
+**kotlin-stdlib 1.5.30**
+
 
 
 
