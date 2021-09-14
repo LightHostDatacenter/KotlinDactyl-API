@@ -1,7 +1,6 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.network
 
 import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
-import br.com.lighthost.kotlinDactylApi.client.server.managers.network.actions.ClientNetworkActions
 import br.com.lighthost.kotlinDactylApi.client.server.managers.network.models.ClientAllocationModel
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 import br.com.lighthost.kotlinDactylApi.requests.routes.ClientRoutes
@@ -36,7 +35,8 @@ class ClientNetworkManager(private val server: ClientServerDetails, private val 
                 json.getInt("port"),
                 json.get("notes").toString(),
                 json.getBoolean("is_default"),
-                ClientNetworkActions(server, baseRequest, json.getInt("id")))
+                server,
+                baseRequest)
         }
 
 }

@@ -1,7 +1,6 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.subusers
 
 import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
-import br.com.lighthost.kotlinDactylApi.client.server.managers.subusers.actions.SubUsersActions
 import br.com.lighthost.kotlinDactylApi.client.server.managers.subusers.models.ClientSubUserModel
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 import br.com.lighthost.kotlinDactylApi.requests.routes.ClientRoutes
@@ -41,8 +40,9 @@ class ClientSubUsersManager(private val server: ClientServerDetails, private val
             json.getString("image"),
             json.getBoolean("2fa_enabled"),
             OffsetDateTime.parse(json.getString("created_at")),
-            json.getJSONArray("permissions").toList().map { it as String },
-            SubUsersActions(server, baseRequest,json.getString("uuid")))
+            json.getJSONArray("permissions").toMutableList().map { it as String } as MutableList<String>,
+            baseRequest,
+            server)
     }
 
 }

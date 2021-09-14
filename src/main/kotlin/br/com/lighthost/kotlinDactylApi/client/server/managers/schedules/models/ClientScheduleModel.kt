@@ -1,19 +1,27 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.schedules.models
 
+import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
 import br.com.lighthost.kotlinDactylApi.client.server.managers.schedules.actions.ScheduleActions
+import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 import java.time.OffsetDateTime
 
 data class ClientScheduleModel(
     val id:Int,
-    val name:String,
-    val cron:ClientCronJobModel,
-    val isActive:Boolean,
+    var name:String,
+    var isActive:Boolean,
+    var onlyWhenOnline:Boolean,
+    var cron:ClientCronJobModel,
     val isProcessing:Boolean,
-    val onlyWhenOnline:Boolean,
     val lastRun:OffsetDateTime?,
     val nextRun:OffsetDateTime,
     val createdAt:OffsetDateTime,
     val updatedAt:OffsetDateTime,
     val tasks:List<ClientTaskModel>?,
-    val actions:ScheduleActions,
-    val updateModel: NewScheduleModel)
+    private val baseRequest: BaseRequest,
+    private val serverDetails: ClientServerDetails){
+
+    fun actions(): ScheduleActions {
+        return ScheduleActions(serverDetails, baseRequest, this)
+    }
+
+}

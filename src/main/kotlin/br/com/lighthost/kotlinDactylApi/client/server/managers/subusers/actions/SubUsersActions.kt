@@ -1,19 +1,20 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.subusers.actions
 
 import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
+import br.com.lighthost.kotlinDactylApi.client.server.managers.subusers.models.ClientSubUserModel
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 import br.com.lighthost.kotlinDactylApi.requests.routes.ClientRoutes
 import org.json.JSONObject
 
-class SubUsersActions (private val server: ClientServerDetails, private val baseRequest: BaseRequest, private val userUuid:String) {
+class SubUsersActions (private val server: ClientServerDetails, private val baseRequest: BaseRequest, private val subUser:ClientSubUserModel) {
 
-    fun updatePermissions(newPermissions:List<String>){
-        val json = JSONObject().accumulate("permissions", newPermissions)
-        baseRequest.executeRequest(ClientRoutes.SUBUSERS.updateSubUser(server.attributes.identifier, userUuid), json.toString())
+    fun update(){
+        val json = JSONObject().accumulate("permissions", subUser.permissions)
+        baseRequest.executeRequest(ClientRoutes.SUBUSERS.updateSubUser(server.attributes.identifier, subUser.uuid), json.toString())
     }
 
     fun delete(){
-        baseRequest.executeRequest(ClientRoutes.SUBUSERS.deleteSubUser(server.attributes.identifier, userUuid), null)
+        baseRequest.executeRequest(ClientRoutes.SUBUSERS.deleteSubUser(server.attributes.identifier, subUser.uuid), null)
     }
 
 }

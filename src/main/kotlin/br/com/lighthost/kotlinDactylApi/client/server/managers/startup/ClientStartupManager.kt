@@ -1,7 +1,6 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.startup
 
 import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
-import br.com.lighthost.kotlinDactylApi.client.server.managers.startup.actions.ClientStartupActions
 import br.com.lighthost.kotlinDactylApi.client.server.managers.startup.models.EnvironmentVariableModel
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 import br.com.lighthost.kotlinDactylApi.requests.routes.ClientRoutes
@@ -32,7 +31,8 @@ class ClientStartupManager(private val server: ClientServerDetails, private val 
                 json.getString("server_value"),
                 json.getBoolean("is_editable"),
                 json.getString("rules"),
-                ClientStartupActions(server, baseRequest,json.getString("env_variable")))
+                server,
+                baseRequest)
     }
 
 }

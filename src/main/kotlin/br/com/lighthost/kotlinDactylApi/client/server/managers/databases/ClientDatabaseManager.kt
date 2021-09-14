@@ -1,6 +1,5 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.databases
 
-import br.com.lighthost.kotlinDactylApi.client.server.managers.databases.actions.ClientDatabaseActions
 import br.com.lighthost.kotlinDactylApi.client.server.managers.databases.models.ClientDatabaseModel
 import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
@@ -41,7 +40,8 @@ class ClientDatabaseManager (private val server : ClientServerDetails, private v
                 json.getString("username"),
                 json.getString("connections_from"),
                 json.getJSONObject("relationships").getJSONObject("password").getJSONObject("attributes").getString("password"),
-                ClientDatabaseActions(server, baseRequest, json.getString("id")))
+                server,
+                baseRequest)
         }
 
 }

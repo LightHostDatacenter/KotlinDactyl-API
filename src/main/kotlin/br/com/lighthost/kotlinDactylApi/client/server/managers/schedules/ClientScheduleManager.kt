@@ -1,8 +1,6 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.schedules
 
 import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
-import br.com.lighthost.kotlinDactylApi.client.server.managers.schedules.actions.ScheduleActions
-import br.com.lighthost.kotlinDactylApi.client.server.managers.schedules.actions.TaskActions
 import br.com.lighthost.kotlinDactylApi.client.server.managers.schedules.models.*
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 import br.com.lighthost.kotlinDactylApi.requests.routes.ClientRoutes
@@ -54,7 +52,6 @@ class ClientScheduleManager( private val server: ClientServerDetails, private va
                 cronJson.getString("hour"),
                 cronJson.getString("minute")
             )
-            val updateModel = NewScheduleModel(json.getString("name"), json.getBoolean("is_active"), cron, json.getBoolean("only_when_online"))
             val tasks: MutableList<ClientTaskModel> = mutableListOf()
             json.getJSONObject("relationships").getJSONObject("tasks").getJSONArray("data").forEach {
                 it as JSONObject
@@ -63,34 +60,34 @@ class ClientScheduleManager( private val server: ClientServerDetails, private va
             return ClientScheduleModel(
                 json.getInt("id"),
                 json.getString("name"),
-                cron,
                 json.getBoolean("is_active"),
-                json.getBoolean("is_processing"),
                 json.getBoolean("only_when_online"),
+                cron,
+                json.getBoolean("is_processing"),
                 (if (json.get("last_run_at").toString() != "null") { OffsetDateTime.parse(json.getString("last_run_at")) } else{null}),
                 OffsetDateTime.parse(json.getString("next_run_at")),
                 OffsetDateTime.parse(json.getString("created_at")),
                 OffsetDateTime.parse(json.getString("updated_at")),
                 tasks,
-                ScheduleActions(server, baseRequest,json.getInt("id")),
-                updateModel)
+                baseRequest,
+                server)
         }
 
          fun parseClientTask(rawJson : String, scheduleId:Int): ClientTaskModel {
             val json = JSONObject(rawJson)
-             val updateModel = NewTaskModel(json.getInt("sequence_id"), json.getString("action"),json.getString("payload"),json.getInt("time_offset"),json.getBoolean("continue_on_failure") )
              return ClientTaskModel(
                 json.getInt("id"),
                 json.getInt("sequence_id"),
                 json.getString("action"),
                 json.getString("payload"),
                 json.getInt("time_offset"),
-                json.getBoolean("is_queued"),
-                json.getBoolean("continue_on_failure"),
+                 json.getBoolean("continue_on_failure"),
+                 json.getBoolean("is_queued"),
                 OffsetDateTime.parse(json.getString("created_at")),
                 OffsetDateTime.parse(json.getString("updated_at")),
-                TaskActions(server, baseRequest, json.getInt("id"), scheduleId ),
-                updateModel)
+                scheduleId,
+                baseRequest,
+                server)
         }
 
 }
