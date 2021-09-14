@@ -1,7 +1,10 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.schedules
 
 import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
-import br.com.lighthost.kotlinDactylApi.client.server.managers.schedules.models.*
+import br.com.lighthost.kotlinDactylApi.client.server.managers.schedules.models.ClientCronJobModel
+import br.com.lighthost.kotlinDactylApi.client.server.managers.schedules.models.ClientScheduleModel
+import br.com.lighthost.kotlinDactylApi.client.server.managers.schedules.models.ClientTaskModel
+import br.com.lighthost.kotlinDactylApi.client.server.managers.schedules.models.NewScheduleModel
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 import br.com.lighthost.kotlinDactylApi.requests.routes.ClientRoutes
 import org.json.JSONObject
