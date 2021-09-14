@@ -47,9 +47,9 @@ Console websocket️| ✔️
 Feature | Status |
 :---:| ---
 User manager️| ✔️
+Location manager️|✔️
 Node manager️|  ❌️️
 Allocation manager️|  ❌️️
-Location manager️|  ❌️️
 Server manager️|  ❌️️
 Database manager️|  ❌️️
 Nest manager️|  ❌️️

@@ -30,4 +30,26 @@ class ApplicationRoutes {
         }
     }
 
+    object LOCATIONS {
+        fun getLocations(): RouteModel {
+            return RouteModel("GET", "locations", "application/json")
+        }
+
+        fun createLocation(): RouteModel {
+            return RouteModel("POST", "locations", "application/json")
+        }
+
+        fun getLocation(id:Int): RouteModel {
+            return RouteModel("GET", "locations/${id}", "application/json")
+        }
+
+        fun updateLocation(id:Int): RouteModel {
+            return RouteModel("PATCH", "locations/${id}", "application/json")
+        }
+
+        fun deleteLocation(id:Int): RouteModel {
+            return RouteModel("DELETE", "locations/${id}", "application/json")
+        }
+    }
+
 }
