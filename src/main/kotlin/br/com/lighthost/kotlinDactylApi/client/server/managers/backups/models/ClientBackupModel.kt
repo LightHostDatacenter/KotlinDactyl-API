@@ -1,6 +1,8 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.backups.models
 
 import br.com.lighthost.kotlinDactylApi.client.server.managers.backups.actions.ClientBackupActions
+import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
+import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 import java.time.OffsetDateTime
 
 data class ClientBackupModel(
@@ -13,4 +15,11 @@ data class ClientBackupModel(
     val bytes:Long,
     val createdAt:OffsetDateTime,
     val completedAt: OffsetDateTime?,
-    val actions: ClientBackupActions)
+    private val server:ClientServerDetails,
+    private val baseRequest: BaseRequest){
+
+    fun actions(): ClientBackupActions {
+        return ClientBackupActions(server, baseRequest, uuid)
+    }
+
+}

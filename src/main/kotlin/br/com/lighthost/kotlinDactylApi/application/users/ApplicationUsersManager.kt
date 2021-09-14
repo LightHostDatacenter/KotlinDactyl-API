@@ -1,8 +1,7 @@
 package br.com.lighthost.kotlinDactylApi.application.users
 
-import br.com.lighthost.kotlinDactylApi.application.users.actions.ApplicationUsersActions
-import br.com.lighthost.kotlinDactylApi.application.users.models.UserModel
-import br.com.lighthost.kotlinDactylApi.application.users.models.UserUpdateModel
+import br.com.lighthost.kotlinDactylApi.application.users.models.ApplicationNewUserModel
+import br.com.lighthost.kotlinDactylApi.application.users.models.ApplicationUserModel
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 import br.com.lighthost.kotlinDactylApi.requests.routes.ApplicationRoutes
 import org.json.JSONObject
@@ -10,8 +9,8 @@ import java.time.OffsetDateTime
 
 class ApplicationUsersManager (private val baseRequest: BaseRequest) {
 
-    fun retrieveUsers():List<UserModel>{
-        val list: MutableList<UserModel> = mutableListOf()
+    fun retrieveUsers():List<ApplicationUserModel>{
+        val list: MutableList<ApplicationUserModel> = mutableListOf()
         JSONObject(baseRequest.executeRequest(ApplicationRoutes.USERS.getUsers(), null)).getJSONArray("data").forEach {
             it as JSONObject
             list.add(userParser(it.getJSONObject("attributes")))
@@ -19,15 +18,15 @@ class ApplicationUsersManager (private val baseRequest: BaseRequest) {
         return list
     }
 
-    fun retrieveUserById(id:Int):UserModel{
+    fun retrieveUserById(id:Int):ApplicationUserModel{
         return userParser(JSONObject(baseRequest.executeRequest(ApplicationRoutes.USERS.getUser(id), null)).getJSONObject("attributes"))
     }
 
-    fun retrieveUserByExternalId(externalId:String):UserModel{
+    fun retrieveUserByExternalId(externalId:String):ApplicationUserModel{
         return userParser(JSONObject(baseRequest.executeRequest(ApplicationRoutes.USERS.getUserByExternalId(externalId), null)).getJSONObject("attributes"))
     }
 
-    fun createUser(newUser:UserUpdateModel): UserModel {
+    fun createUser(newUser:ApplicationNewUserModel): ApplicationUserModel {
         val json = JSONObject().accumulate("email", newUser.email)
             .accumulate("username", newUser.username).accumulate("first_name", newUser.firstName)
             .accumulate("last_name", newUser.lastName).accumulate("external_id", newUser.externalId)
@@ -36,16 +35,8 @@ class ApplicationUsersManager (private val baseRequest: BaseRequest) {
             ApplicationRoutes.USERS.createUser(), json.toString())).getJSONObject("attributes"))
     }
 
-    private fun userParser(json : JSONObject): UserModel {
-        val updateModel = UserUpdateModel(
-            json.getString("email"),
-            json.getString("username"),
-            json.getString("first_name"),
-            json.getString("last_name"),
-            json.optString("external_id"),
-            json.getBoolean("root_admin"),
-            json.getString("language"))
-        return UserModel(
+    private fun userParser(json : JSONObject): ApplicationUserModel {
+        return ApplicationUserModel(
             json.getInt("id"),
             json.optString("external_id"),
             json.getString("uuid"),
@@ -58,8 +49,7 @@ class ApplicationUsersManager (private val baseRequest: BaseRequest) {
             json.getBoolean("2fa"),
             OffsetDateTime.parse(json.getString("created_at")),
             OffsetDateTime.parse(json.getString("updated_at")),
-            updateModel,
-            ApplicationUsersActions(baseRequest, json.getInt("id")))
+            baseRequest)
     }
 
 }

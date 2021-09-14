@@ -1,6 +1,8 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.databases.models
 
 import br.com.lighthost.kotlinDactylApi.client.server.managers.databases.actions.ClientDatabaseActions
+import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
+import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
 
 data class ClientDatabaseModel(
     val id:String,
@@ -10,4 +12,11 @@ data class ClientDatabaseModel(
     val username:String,
     val allowedRemote:String,
     val password:String,
-    val actions: ClientDatabaseActions)
+    private val server:ClientServerDetails,
+    private val baseRequest: BaseRequest){
+
+    fun actions(): ClientDatabaseActions {
+        return ClientDatabaseActions(server, baseRequest, id)
+    }
+
+}

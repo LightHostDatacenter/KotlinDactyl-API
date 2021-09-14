@@ -1,6 +1,5 @@
 package br.com.lighthost.kotlinDactylApi.client.server.managers.backups
 
-import br.com.lighthost.kotlinDactylApi.client.server.managers.backups.actions.ClientBackupActions
 import br.com.lighthost.kotlinDactylApi.client.server.managers.backups.models.ClientBackupModel
 import br.com.lighthost.kotlinDactylApi.client.server.managers.details.ClientServerDetails
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
@@ -49,8 +48,8 @@ class ClientBackupManager(private val server : ClientServerDetails, private val 
             json.getLong("bytes"),
             OffsetDateTime.parse(json.getString("created_at")),
             (if (json.get("completed_at").toString() != "null") { OffsetDateTime.parse(json.getString("completed_at")) } else{null}),
-            ClientBackupActions(server, baseRequest,json.getString("uuid"))
-        )
+            server,
+            baseRequest)
     }
 
 }
