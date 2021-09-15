@@ -48,8 +48,8 @@ Feature | Status |
 :---:| ---
 User manager️| ✔️
 Location manager️|✔️
-Node manager️|  ❌️️
-Allocation manager️|  ❌️️
+Node manager️| ✔️
+Allocation manager️| ✔️
 Server manager️|  ❌️️
 Database manager️|  ❌️️
 Nest manager️|  ❌️️

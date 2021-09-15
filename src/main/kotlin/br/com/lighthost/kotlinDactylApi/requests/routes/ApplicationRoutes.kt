@@ -30,6 +30,46 @@ class ApplicationRoutes {
         }
     }
 
+    object NODES {
+        fun getNodes(): RouteModel {
+            return RouteModel("GET", "nodes/?include=servers,allocations", "application/json")
+        }
+
+        fun getNode(id:Int): RouteModel {
+            return RouteModel("GET", "nodes/${id}/?include=servers,allocations", "application/json")
+        }
+
+        fun getNodeConfiguration(id:Int): RouteModel {
+            return RouteModel("GET", "nodes/${id}/configuration", "application/json")
+        }
+
+        fun createNode(): RouteModel {
+            return RouteModel("POST", "nodes", "application/json")
+        }
+
+        fun updateNode(id:Int): RouteModel {
+            return RouteModel("PATCH", "nodes/${id}", "application/json")
+        }
+
+        fun deleteNode(id:Int): RouteModel {
+            return RouteModel("DELETE", "nodes/${id}", "application/json")
+        }
+    }
+
+    object ALLOCATIONS {
+        fun getAllocations(nodeId:Int): RouteModel {
+            return RouteModel("GET", "nodes/${nodeId}/allocations", "application/json")
+        }
+
+        fun createAllocation(nodeId: Int): RouteModel {
+            return RouteModel("POST", "nodes/${nodeId}/allocations/", "application/json")
+        }
+
+        fun deleteAllocation(nodeId: Int, allocationId:Int): RouteModel {
+            return RouteModel("DELETE", "nodes/${nodeId}/allocations/${allocationId}", "application/json")
+        }
+    }
+
     object LOCATIONS {
         fun getLocations(): RouteModel {
             return RouteModel("GET", "locations", "application/json")
