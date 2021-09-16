@@ -10,8 +10,9 @@ class ClientNetworkManager(private val server: ClientServerDetails, private val 
 
     fun retrieveAllocations(): List<ClientAllocationModel> {
         val list:MutableList<ClientAllocationModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.NETWORK.listAllocations(server.attributes.identifier), null)).getJSONArray("data").forEach {
-            it as JSONObject
+        val allocationsArray = JSONObject(baseRequest.executeRequest(ClientRoutes.NETWORK.listAllocations(server.attributes.identifier), null)).getJSONArray("data")
+        for (i:Int in 0 until allocationsArray.length()){
+            val it = allocationsArray.getJSONObject(i)
             list.add(clientNetworkManagerParser(it.getJSONObject("attributes").toString()))
         }
         return list

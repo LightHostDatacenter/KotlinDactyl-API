@@ -10,9 +10,10 @@ class ApplicationLocationsManager(private val baseRequest: BaseRequest) {
 
     fun retrieveLocations(): MutableList<ApplicationLocationModel> {
         val list:MutableList<ApplicationLocationModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ApplicationRoutes.LOCATIONS.getLocations(), null)).getJSONArray("data").forEach {
-            it as JSONObject
-            list.add(locationParser(it.getJSONObject("attributes")))
+        val locationsArray = JSONObject(baseRequest.executeRequest(ApplicationRoutes.LOCATIONS.getLocations(), null)).getJSONArray("data")
+        for (i:Int in 0 until locationsArray.length()){
+            val obj = locationsArray.getJSONObject(i)
+            list.add(locationParser(obj.getJSONObject("attributes")))
         }
         return list
     }

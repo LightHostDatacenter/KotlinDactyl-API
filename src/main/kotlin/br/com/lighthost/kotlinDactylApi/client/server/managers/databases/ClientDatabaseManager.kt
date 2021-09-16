@@ -10,11 +10,11 @@ class ClientDatabaseManager (private val server : ClientServerDetails, private v
 
     fun retrieveDatabases():List<ClientDatabaseModel>{
         val list:MutableList<ClientDatabaseModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.DATABASES.listDatabases(server.attributes.identifier), null))
-            .getJSONArray("data").forEach{
-                it as JSONObject
-                list.add(clientDatabaseParser(it.getJSONObject("attributes").toString()))
-            }
+        val databasesArray = JSONObject(baseRequest.executeRequest(ClientRoutes.DATABASES.listDatabases(server.attributes.identifier), null)).getJSONArray("data")
+        for (i:Int in 0 until databasesArray.length()){
+            val it = databasesArray.getJSONObject(i)
+            list.add(clientDatabaseParser(it.getJSONObject("attributes").toString()))
+        }
         return list
     }
 

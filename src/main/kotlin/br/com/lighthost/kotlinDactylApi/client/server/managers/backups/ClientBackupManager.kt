@@ -11,8 +11,9 @@ class ClientBackupManager(private val server : ClientServerDetails, private val 
 
     fun retrieveBackups():List<ClientBackupModel>{
         val list:MutableList<ClientBackupModel> = mutableListOf()
-         JSONObject(baseRequest.executeRequest(ClientRoutes.BACKUPS.listBackups(server.attributes.identifier), null)).getJSONArray("data").forEach {
-             it as JSONObject
+        val backupsArray = JSONObject(baseRequest.executeRequest(ClientRoutes.BACKUPS.listBackups(server.attributes.identifier), null)).getJSONArray("data")
+        for (i:Int in 0 until backupsArray.length()){
+            val it = backupsArray.getJSONObject(i)
             list.add(clientBackupParser(it.getJSONObject("attributes").toString(), server, baseRequest))
         }
         return list
