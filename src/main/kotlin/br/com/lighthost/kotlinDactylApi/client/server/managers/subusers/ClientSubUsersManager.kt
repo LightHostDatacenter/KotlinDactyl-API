@@ -11,9 +11,10 @@ class ClientSubUsersManager(private val server: ClientServerDetails, private val
 
     fun retrieveSubUsers(): MutableList<ClientSubUserModel> {
         val list:MutableList<ClientSubUserModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.SUBUSERS.listSubUsers(server.attributes.identifier), null)).getJSONArray("data").forEach{
-            it as JSONObject
-             list.add(parseClientSubUser(it.getJSONObject("attributes").toString()))
+        val subUsersArray = JSONObject(baseRequest.executeRequest(ClientRoutes.SUBUSERS.listSubUsers(server.attributes.identifier), null)).getJSONArray("data")
+        for (i:Int in 0 until subUsersArray.length()){
+            val it = subUsersArray.getJSONObject(i)
+            list.add(parseClientSubUser(it.getJSONObject("attributes").toString()))
         }
         return list
     }

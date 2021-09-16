@@ -10,8 +10,9 @@ class ClientStartupManager(private val server: ClientServerDetails, private val 
 
     fun getVariablesList():List<EnvironmentVariableModel>{
         val list: MutableList<EnvironmentVariableModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.STARTUP.listVariables(server.attributes.identifier), null)).getJSONArray("data").forEach {
-            it as JSONObject
+        val variablesArray = JSONObject(baseRequest.executeRequest(ClientRoutes.STARTUP.listVariables(server.attributes.identifier), null)).getJSONArray("data")
+        for (i:Int in 0 until variablesArray.length()){
+            val it = variablesArray.getJSONObject(i)
             list.add(clientVariableParser(it.getJSONObject("attributes").toString()))
         }
         return list

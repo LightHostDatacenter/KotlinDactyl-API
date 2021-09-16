@@ -11,9 +11,10 @@ class ApplicationNodeManager(private val baseRequest: BaseRequest) {
 
     fun retrieveNodes(): MutableList<ApplicationNodeModel> {
         val list:MutableList<ApplicationNodeModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ApplicationRoutes.NODES.getNodes(), null)).getJSONArray("data").forEach {
-            it as JSONObject
-            list.add(parseNodeModel(it.getJSONObject("attributes")))
+        val nodesArray = JSONObject(baseRequest.executeRequest(ApplicationRoutes.NODES.getNodes(), null)).getJSONArray("data")
+        for (i:Int in 0 until nodesArray.length()){
+            val obj = nodesArray.getJSONObject(i)
+            list.add(parseNodeModel(obj.getJSONObject("attributes")))
         }
         return list
     }
@@ -45,9 +46,10 @@ class ApplicationNodeManager(private val baseRequest: BaseRequest) {
 
     private fun parseNodeModel(json: JSONObject): ApplicationNodeModel {
         val serversList: MutableList<Int> = mutableListOf()
-        json.optJSONObject("relationships")?.optJSONObject("servers")?.optJSONArray("data")?.forEach {
-            it as JSONObject
-            serversList.add(it.getJSONObject("attributes").getInt("id"))
+        val serversArray = json.optJSONObject("relationships")?.optJSONObject("servers")?.optJSONArray("data")
+        for (i:Int in 0 until serversArray!!.length()){
+            val obj = serversArray.getJSONObject(i)
+            serversList.add(obj.getJSONObject("attributes").getInt("id"))
         }
         return ApplicationNodeModel(
             json.getInt("id"),

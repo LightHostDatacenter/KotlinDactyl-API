@@ -14,8 +14,9 @@ class ClientScheduleManager( private val server: ClientServerDetails, private va
 
     fun retrieveSchedules(): List<ClientScheduleModel>? {
         val list:MutableList<ClientScheduleModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.SCHEDULES.getSchedules(server.attributes.identifier), null)).getJSONArray("data").forEach {
-            it as JSONObject
+        val schedulesArray = JSONObject(baseRequest.executeRequest(ClientRoutes.SCHEDULES.getSchedules(server.attributes.identifier), null)).getJSONArray("data")
+        for (i:Int in 0 until schedulesArray.length()){
+            val it = schedulesArray.getJSONObject(i)
             list.add(parseClientSchedule(it.getJSONObject("attributes").toString()))
         }
         return if(list.isEmpty()){
@@ -56,8 +57,9 @@ class ClientScheduleManager( private val server: ClientServerDetails, private va
                 cronJson.getString("minute")
             )
             val tasks: MutableList<ClientTaskModel> = mutableListOf()
-            json.getJSONObject("relationships").getJSONObject("tasks").getJSONArray("data").forEach {
-                it as JSONObject
+            val tasksArray = json.getJSONObject("relationships").getJSONObject("tasks").getJSONArray("data")
+            for (i:Int in 0 until tasksArray.length()){
+                val it = tasksArray.getJSONObject(i)
                 tasks.add(parseClientTask(it.getJSONObject("attributes").toString(),json.getInt("id")))
             }
             return ClientScheduleModel(

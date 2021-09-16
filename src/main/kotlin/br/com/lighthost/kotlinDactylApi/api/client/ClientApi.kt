@@ -5,6 +5,7 @@ import br.com.lighthost.kotlinDactylApi.api.client.models.SystemPermissionsModel
 import br.com.lighthost.kotlinDactylApi.client.account.ClientAccountManager
 import br.com.lighthost.kotlinDactylApi.client.server.ClientServer
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
+import br.com.lighthost.kotlinDactylApi.requests.routes.ApplicationRoutes
 import br.com.lighthost.kotlinDactylApi.requests.routes.ClientRoutes
 import org.json.JSONObject
 
@@ -20,9 +21,10 @@ class ClientApi (baseUrl:String, apiKey:String) {
 
     fun retrieveServers(): List<ClientServer>{
         val list:MutableList<ClientServer> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.SERVER.getServers(), null)).getJSONArray("data").forEach{
-            it as JSONObject
-            list.add(ClientServer(it.toString(), baseRequest))
+        val serversArray = JSONObject(baseRequest.executeRequest(ClientRoutes.SERVER.getServers(), null)).getJSONArray("data")
+        for (i:Int in 0 until serversArray.length()){
+            val obj = serversArray.getJSONObject(i)
+            list.add(ClientServer(obj.toString(), baseRequest))
         }
         return list
     }
@@ -30,17 +32,18 @@ class ClientApi (baseUrl:String, apiKey:String) {
     fun retrieveAssignablePermissions():List<SystemPermissionsModel> {
         val list:MutableList<SystemPermissionsModel> = mutableListOf()
         val data = JSONObject(baseRequest.executeRequest(ClientRoutes.PERMISSIONS.getSystemPermissions(), null)).getJSONObject("attributes").getJSONObject("permissions")
-        data.names().forEach{ permissionName ->
-           permissionName as String
-           val description = data.getJSONObject(permissionName).getString("description")
-           val jsonKeyList = data.getJSONObject(permissionName).getJSONObject("keys")
-           val keyList:MutableList<SystemPermissionsKeyModel> = mutableListOf()
-           jsonKeyList.names().forEach {
-               it as String
-               keyList.add(SystemPermissionsKeyModel(it, jsonKeyList.getString(it)))
-           }
-           list.add(SystemPermissionsModel(permissionName, description, keyList ))
-       }
+        val permissionNames = data.names()
+        for (i:Int in 0 until permissionNames.length()){
+            val permissionName = permissionNames.getString(i)
+            val description = data.getJSONObject(permissionName).getString("description")
+            val jsonKeyListNames = data.getJSONObject(permissionName).getJSONObject("keys").names()
+            val jsonKeyList = data.getJSONObject(permissionName).getJSONObject("keys")
+            val keyList:MutableList<SystemPermissionsKeyModel> = mutableListOf()
+            for (keyI:Int in 0 until jsonKeyListNames.length()){
+                keyList.add(SystemPermissionsKeyModel(jsonKeyListNames[keyI].toString(), jsonKeyList.getString(jsonKeyListNames[keyI].toString())))
+            }
+            list.add(SystemPermissionsModel(permissionName, description, keyList ))
+        }
         return list
     }
 

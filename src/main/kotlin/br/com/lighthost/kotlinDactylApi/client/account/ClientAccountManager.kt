@@ -5,6 +5,7 @@ import br.com.lighthost.kotlinDactylApi.client.account.actions.ClientApiKeysActi
 import br.com.lighthost.kotlinDactylApi.client.account.models.ClientAccountDetailsModel
 import br.com.lighthost.kotlinDactylApi.client.account.models.ClientApiKeyModel
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
+import br.com.lighthost.kotlinDactylApi.requests.routes.ApplicationRoutes
 import br.com.lighthost.kotlinDactylApi.requests.routes.ClientRoutes
 import org.json.JSONObject
 import java.time.OffsetDateTime
@@ -26,8 +27,9 @@ class ClientAccountManager(private val baseRequest: BaseRequest) {
 
     fun retrieveApiKeys(): MutableList<ClientApiKeyModel> {
         val list:MutableList<ClientApiKeyModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.ACCOUNT.getApiKeys(), null)).getJSONArray("data").forEach {
-            it as JSONObject
+        val apiKeysArray = JSONObject(baseRequest.executeRequest(ClientRoutes.ACCOUNT.getApiKeys(), null)).getJSONArray("data")
+        for (i:Int in 0 until apiKeysArray.length()){
+            val it = apiKeysArray.getJSONObject(i)
             list.add(clientApiKeyParser(it.getJSONObject("attributes").toString()))
         }
         return list

@@ -44,9 +44,10 @@ class ApplicationNodeActions(private val baseRequest: BaseRequest, private val n
 
     fun retrieveAllocations(): MutableList<ApplicationAllocationModel> {
         val list:MutableList<ApplicationAllocationModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ApplicationRoutes.ALLOCATIONS.getAllocations(node.id), null)).getJSONArray("data").forEach {
-            it as JSONObject
-            list.add(parseAllocation(it.getJSONObject("attributes")))
+        val allocationsArray = JSONObject(baseRequest.executeRequest(ApplicationRoutes.ALLOCATIONS.getAllocations(node.id), null)).getJSONArray("data")
+        for (i:Int in 0 until allocationsArray.length()){
+            val obj = allocationsArray.getJSONObject(i)
+            list.add(parseAllocation(obj.getJSONObject("attributes")))
         }
         return list
     }

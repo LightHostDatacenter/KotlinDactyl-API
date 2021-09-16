@@ -12,8 +12,10 @@ class ClientFileManager (private val server: ClientServerDetails, private val ba
 
     fun retrieveFiles(directory:String): MutableList<ClientFileModel> {
         val filesList : MutableList<ClientFileModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ClientRoutes.FILES.listFiles(server.attributes.identifier, directory), null)).getJSONArray("data").forEach{
-            it as JSONObject; filesList.add(clientFileManagerParser(it.getJSONObject("attributes")))
+        val filesArray = JSONObject(baseRequest.executeRequest(ClientRoutes.FILES.listFiles(server.attributes.identifier, directory), null)).getJSONArray("data")
+        for (i:Int in 0 until filesArray.length()){
+            val it = filesArray.getJSONObject(i)
+            filesList.add(clientFileManagerParser(it.getJSONObject("attributes")))
         }
         return filesList
     }
