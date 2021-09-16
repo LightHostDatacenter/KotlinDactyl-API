@@ -11,9 +11,10 @@ class ApplicationUsersManager (private val baseRequest: BaseRequest) {
 
     fun retrieveUsers():List<ApplicationUserModel>{
         val list: MutableList<ApplicationUserModel> = mutableListOf()
-        JSONObject(baseRequest.executeRequest(ApplicationRoutes.USERS.getUsers(), null)).getJSONArray("data").forEach {
-            it as JSONObject
-            list.add(userParser(it.getJSONObject("attributes")))
+        val usersArray = JSONObject(baseRequest.executeRequest(ApplicationRoutes.USERS.getUsers(), null)).getJSONArray("data")
+        for (i:Int in 0 until usersArray.length()){
+            val obj = usersArray.getJSONObject(i)
+            list.add(userParser(obj.getJSONObject("attributes")))
         }
         return list
     }
