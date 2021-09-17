@@ -56,6 +56,26 @@ class ApplicationRoutes {
         }
     }
 
+    object NESTS {
+        fun getNests(): RouteModel {
+            return RouteModel("GET", "nests", "application/json")
+        }
+
+        fun getNest(id:Int): RouteModel {
+            return RouteModel("GET", "nests/${id}", "application/json")
+        }
+    }
+
+    object EGGS {
+        fun getEggs(nestId:Int): RouteModel {
+            return RouteModel("GET", "nests/${nestId}/eggs/?include=variables", "application/json")
+        }
+
+        fun getEgg(nestId:Int ,id:Int): RouteModel {
+            return RouteModel("GET", "nests/${nestId}/eggs/${id}/?include=variables", "application/json")
+        }
+    }
+
     object ALLOCATIONS {
         fun getAllocations(nodeId:Int): RouteModel {
             return RouteModel("GET", "nodes/${nodeId}/allocations", "application/json")

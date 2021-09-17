@@ -81,8 +81,7 @@ class ClientFileManager (private val server: ClientServerDetails, private val ba
         baseRequest.executeRequest(ClientRoutes.FILES.chmodFile(server.attributes.identifier), json.toString())
     }
 
-        private fun clientFileManagerParser(rawJson : JSONObject):ClientFileModel{
-            val json = JSONObject(rawJson)
+        private fun clientFileManagerParser(json : JSONObject):ClientFileModel{
             return ClientFileModel(
                 json.getString("name"),
                 json.getString("mode"),
