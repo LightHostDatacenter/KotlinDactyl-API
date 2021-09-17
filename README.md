@@ -50,10 +50,11 @@ User manager️| ✔️
 Location manager️|✔️
 Node manager️| ✔️
 Allocation manager️| ✔️
+Nest manager️| ✔️
+Egg manager️| ✔️️
 Server manager️|  ❌️️
 Database manager️|  ❌️️
-Nest manager️|  ❌️️
-Egg manager️|  ❌️️
+
 ️
 
 </td></tr> </table>

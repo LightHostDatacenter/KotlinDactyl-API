@@ -5,7 +5,6 @@ import br.com.lighthost.kotlinDactylApi.api.client.models.SystemPermissionsModel
 import br.com.lighthost.kotlinDactylApi.client.account.ClientAccountManager
 import br.com.lighthost.kotlinDactylApi.client.server.ClientServer
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
-import br.com.lighthost.kotlinDactylApi.requests.routes.ApplicationRoutes
 import br.com.lighthost.kotlinDactylApi.requests.routes.ClientRoutes
 import org.json.JSONObject
 
