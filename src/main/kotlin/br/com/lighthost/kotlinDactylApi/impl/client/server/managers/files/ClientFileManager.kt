@@ -1,5 +1,6 @@
 package br.com.lighthost.kotlinDactylApi.impl.client.server.managers.files
 
+import br.com.lighthost.kotlinDactylApi.helpers.CodeMirrorChecker
 import br.com.lighthost.kotlinDactylApi.impl.client.server.managers.details.ClientServerDetails
 import br.com.lighthost.kotlinDactylApi.impl.client.server.managers.files.models.ClientFileModel
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
@@ -82,12 +83,23 @@ class ClientFileManager (private val server: ClientServerDetails, private val ba
     }
 
         private fun clientFileManagerParser(json : JSONObject):ClientFileModel{
+            var editable = false
+            var codeMirrorMode:String? = null
+            if (json.getBoolean("is_file")){
+                val mode = CodeMirrorChecker.check(json.getString("name"))
+                if (mode != null){
+                    editable = true
+                    codeMirrorMode = mode
+                }
+            }
             return ClientFileModel(
                 json.getString("name"),
                 json.getString("mode"),
                 json.getString("mode_bits"),
                 json.getLong("size"),
                 json.getBoolean("is_file"),
+                editable,
+                codeMirrorMode,
                 json.getBoolean("is_symlink"),
                 json.getString("mimetype"),
                 OffsetDateTime.parse(json.getString("created_at")),
