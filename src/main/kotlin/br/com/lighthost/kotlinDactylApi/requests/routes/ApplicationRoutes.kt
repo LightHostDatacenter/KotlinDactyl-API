@@ -4,6 +4,80 @@ import br.com.lighthost.kotlinDactylApi.requests.routes.models.RouteModel
 
 class ApplicationRoutes {
 
+    object SERVERS {
+        fun getServers(): RouteModel {
+            return RouteModel("GET", "servers/?include=allocations,user,subusers,pack,egg,nest,variables,location,node,databases", "application/json")
+        }
+
+        fun getServer(id:Int): RouteModel {
+            return RouteModel("GET", "servers/${id}/?include=allocations,user,subusers,pack,egg,nest,variables,location,node,databases", "application/json")
+        }
+
+        fun getServerByExternalId(externalId:String): RouteModel {
+            return RouteModel("GET", "servers/external/${externalId}/?include=allocations,user,subusers,pack,egg,nest,variables,location,node,databases", "application/json")
+        }
+
+        fun updateServerDetails(id:Int): RouteModel {
+            return RouteModel("PATCH", "servers/${id}/details", "application/json")
+        }
+
+        fun updateServerBuild(id:Int): RouteModel {
+            return RouteModel("PATCH", "servers/${id}/build", "application/json")
+        }
+
+        fun updateServerStartup(id:Int): RouteModel {
+            return RouteModel("PATCH", "servers/${id}/startup", "application/json")
+        }
+
+        fun createServer(): RouteModel {
+            return RouteModel("POST", "servers", "application/json")
+        }
+
+        fun suspendServer(id:Int): RouteModel {
+            return RouteModel("POST", "servers/${id}/suspend", "application/json")
+        }
+
+        fun unsuspendServer(id:Int): RouteModel {
+            return RouteModel("POST", "servers/${id}/unsuspend", "application/json")
+        }
+
+        fun reinstallServer(id:Int): RouteModel {
+            return RouteModel("POST", "servers/${id}/reinstall", "application/json")
+        }
+
+        fun deleteServer(id:Int): RouteModel {
+            return RouteModel("DELETE", "servers/${id}", "application/json")
+        }
+
+        fun forceDeleteServer(id:Int): RouteModel {
+            return RouteModel("DELETE", "servers/${id}/force", "application/json")
+        }
+    }
+
+    object DATABASES{
+
+        fun getDatabases(serverId:Int): RouteModel {
+            return RouteModel("GET", "servers/${serverId}/databases?include=host,password", "application/json")
+        }
+
+        fun getDatabase(serverId:Int, databaseId:Int): RouteModel {
+            return RouteModel("GET", "servers/${serverId}/databases/${databaseId}?include=host,password", "application/json")
+        }
+
+        fun createDatabase(serverId:Int): RouteModel {
+            return RouteModel("POST", "servers/${serverId}/databases", "application/json")
+        }
+
+        fun rotateDatabasePassword(serverId:Int, databaseId: Int): RouteModel {
+            return RouteModel("POST", "servers/${serverId}/databases/${databaseId}/reset-password", "application/json")
+        }
+
+        fun deleteDatabase(serverId:Int, databaseId: Int): RouteModel {
+            return RouteModel("DELETE", "servers/${serverId}/databases/${databaseId}", "application/json")
+        }
+
+    }
+
     object USERS {
         fun getUsers(): RouteModel {
             return RouteModel("GET", "users", "application/json")

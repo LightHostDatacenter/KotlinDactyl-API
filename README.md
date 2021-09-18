@@ -52,8 +52,8 @@ Node manager️| ✔️
 Allocation manager️| ✔️
 Nest manager️| ✔️
 Egg manager️| ✔️️
-Server manager️|  ❌️️
-Database manager️|  ❌️️
+Server manager️|  ✔️️
+Database manager️|  ✔️️
 
 ️
 
