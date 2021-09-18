@@ -8,7 +8,10 @@ data class ClientFileModel(
     val modeBits:String,
     val size:Long,
     val isFile:Boolean,
+    val isEditable:Boolean,
+    val editMode:String?,
     val isSymlink:Boolean,
     val mimeType:String,
     val createdAt:OffsetDateTime,
-    val modifiedAt:OffsetDateTime)
+    val modifiedAt:OffsetDateTime){
+}
