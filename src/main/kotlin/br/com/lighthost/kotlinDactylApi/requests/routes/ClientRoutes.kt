@@ -12,11 +12,11 @@ class ClientRoutes {
 
     object SERVER {
         fun getServer(serverId: String): RouteModel {
-            return RouteModel("GET", "servers/${serverId}", "application/json")
+            return RouteModel("GET", "servers/${serverId}/?include=egg", "application/json")
         }
 
         fun getServers(): RouteModel {
-            return RouteModel("GET", "", "application/json")
+            return RouteModel("GET", "?include=egg", "application/json")
         }
 
         fun getResourcesUsage(serverId: String): RouteModel {

@@ -7,6 +7,7 @@ data class ClientServerAttributesModel(
     val identifier:String,
     val uuid:String,
     val name:String,
+    val eggName:String,
     val node:String,
     val description:String,
     val internalId:Int,
