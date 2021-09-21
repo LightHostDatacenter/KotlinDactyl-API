@@ -10,6 +10,7 @@ import br.com.lighthost.kotlinDactylApi.impl.client.server.managers.network.Clie
 import br.com.lighthost.kotlinDactylApi.impl.client.server.managers.schedules.ClientScheduleManager
 import br.com.lighthost.kotlinDactylApi.impl.client.server.managers.startup.ClientStartupManager
 import br.com.lighthost.kotlinDactylApi.impl.client.server.managers.subusers.ClientSubUsersManager
+import br.com.lighthost.kotlinDactylApi.impl.client.server.utils.commands.ClientServerCommandSender
 import br.com.lighthost.kotlinDactylApi.impl.client.server.utils.power.ClientPowerManager
 import br.com.lighthost.kotlinDactylApi.impl.client.server.utils.resourceusage.ClientServerResourceUsageManager
 import br.com.lighthost.kotlinDactylApi.impl.client.server.utils.serversettings.ClientServerSettingsManager
@@ -32,6 +33,7 @@ class ClientServer (jsonResponse:String, private val baseRequest:BaseRequest) {
         val settings = ClientServerSettingsManager(server, baseRequest)
         val powerManager = ClientPowerManager(server, baseRequest)
         val resourceUsage = ClientServerResourceUsageManager(baseRequest, server)
+        val commandSender = ClientServerCommandSender(baseRequest, server)
 
     fun createConsoleInstance(handlerClass:ConsoleHandler): ConsoleWebSocket {
         return ConsoleWebSocket(clientServer, baseRequest, handlerClass)
