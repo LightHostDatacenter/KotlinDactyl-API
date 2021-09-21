@@ -5,10 +5,14 @@ import okhttp3.WebSocket
 import okio.ByteString
 import org.json.JSONArray
 import org.json.JSONObject
+import java.sql.Time
+import java.time.Instant
+import java.util.*
 
 class ConsoleCommander (private val console: ConsoleWebSocket, private val webSocket: WebSocket, private val clientServer: ClientServer) {
 
     inner class Server {
+        fun backup() {clientServer.backupManager.createBackup(Time.from(Instant.now()).toString(), null, false)}
         fun reinstall() { clientServer.settings.reinstallServer() }
         fun restart() { webSocketSend("set state", "restart") }
         fun stop() { webSocketSend("set state", "stop") }
