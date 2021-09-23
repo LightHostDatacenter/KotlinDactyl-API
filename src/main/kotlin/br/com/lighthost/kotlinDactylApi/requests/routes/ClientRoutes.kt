@@ -193,6 +193,10 @@ class ClientRoutes {
     }
 
     object SETTINGS {
+        fun setDockerImage(serverId: String): RouteModel {
+            return RouteModel("PUT", "servers/${serverId}/settings/docker-image", "application/json")
+        }
+
         fun renameServer(serverId: String): RouteModel {
             return RouteModel("POST", "servers/${serverId}/settings/rename", "application/json")
         }

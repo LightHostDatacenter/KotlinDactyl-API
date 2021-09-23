@@ -8,16 +8,6 @@ import org.json.JSONObject
 
 class ClientStartupManager(private val server: ClientServerDetails, private val baseRequest: BaseRequest) {
 
-
-    fun getDockerImagesList(): MutableList<String> {
-        val list: MutableList<String> = mutableListOf()
-        val imagesArray = JSONObject(baseRequest.executeRequest(ClientRoutes.STARTUP.listVariables(server.attributes.identifier), null)).getJSONObject("meta").getJSONArray("docker_images")
-        for (i:Int in 0 until imagesArray.length()){
-            list.add(imagesArray.getString(i))
-        }
-        return list
-    }
-
     fun getVariablesList():List<EnvironmentVariableModel>{
         val list: MutableList<EnvironmentVariableModel> = mutableListOf()
         val variablesArray = JSONObject(baseRequest.executeRequest(ClientRoutes.STARTUP.listVariables(server.attributes.identifier), null)).getJSONArray("data")
