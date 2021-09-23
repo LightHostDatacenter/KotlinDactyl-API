@@ -19,6 +19,8 @@ class ClientServerDetails(rootJson : JSONObject){
         attributesObject.getString("uuid"),
         attributesObject.getString("name"),
         attributesObject.getJSONObject("relationships").getJSONObject("egg").getJSONObject("attributes").getString("name"),
+        attributesObject.getString("docker_image"),
+        attributesObject.getString("invocation"),
         attributesObject.getString("node"),
         attributesObject.getString("description"),
         attributesObject.getInt("internal_id"),
