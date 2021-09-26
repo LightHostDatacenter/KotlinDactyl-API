@@ -7,6 +7,7 @@ data class ClientFileModel(
     val mode:String,
     val modeBits:String,
     val size:Long,
+    val sizeFormatted:String,
     val isFile:Boolean,
     val isEditable:Boolean,
     val editMode:String?,

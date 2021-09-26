@@ -1,6 +1,7 @@
 package br.com.lighthost.kotlinDactylApi.impl.client.server.managers.files
 
 import br.com.lighthost.kotlinDactylApi.helpers.CodeMirrorChecker
+import br.com.lighthost.kotlinDactylApi.helpers.DataTransformers.SizeTransform.formatToKbMbGb
 import br.com.lighthost.kotlinDactylApi.impl.client.server.managers.details.ClientServerDetails
 import br.com.lighthost.kotlinDactylApi.impl.client.server.managers.files.models.ClientFileModel
 import br.com.lighthost.kotlinDactylApi.requests.BaseRequest
@@ -97,6 +98,7 @@ class ClientFileManager (private val server: ClientServerDetails, private val ba
                 json.getString("mode"),
                 json.getString("mode_bits"),
                 json.getLong("size"),
+                json.getLong("size").formatToKbMbGb(),
                 json.getBoolean("is_file"),
                 editable,
                 codeMirrorMode,
