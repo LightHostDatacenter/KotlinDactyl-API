@@ -36,6 +36,13 @@ class ClientFileManager (private val server: ClientServerDetails, private val ba
         baseRequest.executeRequest(ClientRoutes.FILES.renameFile(server.attributes.identifier), json.toString())
     }
 
+    fun moveFiles(rootDir:String, from:List<String>, to:String){
+        val destinationList: MutableList<JSONObject> = mutableListOf()
+        from.forEach { destinationList.add(JSONObject().put("from", it).put("to", to + it)) }
+        val json = JSONObject().accumulate("root", rootDir).put("files", destinationList)
+        baseRequest.executeRequest(ClientRoutes.FILES.renameFile(server.attributes.identifier), json.toString())
+    }
+
     fun duplicateFile(filePath: String){
         baseRequest.executeRequest(ClientRoutes.FILES.copyFile(server.attributes.identifier),JSONObject().accumulate("location", filePath).toString())
     }
