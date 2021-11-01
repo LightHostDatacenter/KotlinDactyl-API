@@ -6,6 +6,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 
 class BaseRequest(private val baseUrl:String, private val apiKey:String) {
 
@@ -62,11 +63,11 @@ class BaseRequest(private val baseUrl:String, private val apiKey:String) {
         webClient.newCall(request).execute().use { response ->
             if (!response.isSuccessful) {
                 when (response.code) {
-                    403 -> throw KotlinDactylException.Exceptions.LoginException("The provided token is either incorrect or does not have access to process this request.")
-                    404 -> throw KotlinDactylException.Exceptions.NotFoundException("The requested entity was not found.")
-                    422 -> throw KotlinDactylException.Exceptions.MissingActionException("The request is missing required fields.", response.body!!.string())
-                    500 -> throw KotlinDactylException.Exceptions.ServerException("The server has encountered an Internal Server Error.")
-                    else -> throw KotlinDactylException.Exceptions.ServerException(java.lang.String.format("KotlinDactyl encountered an error. Request responsecode: ${response.code} Content: ${response.body!!.string()}"))
+                    403 -> throw KotlinDactylException.Exceptions.LoginException(JSONObject().accumulate("error_code", response.code).accumulate("error_message", "The provided token is either incorrect or does not have access to process this request.").toString())
+                    404 -> throw KotlinDactylException.Exceptions.NotFoundException(JSONObject().accumulate("error_code", response.code).accumulate("error_message", "The requested entity was not found.").toString())
+                    422 -> throw KotlinDactylException.Exceptions.MissingActionException(JSONObject().accumulate("error_code", response.code).accumulate("error_message", "The request is missing required fields.").accumulate("error_content:", response.body!!.string()).toString())
+                    500 -> throw KotlinDactylException.Exceptions.ServerException(JSONObject().accumulate("error_code", response.code).accumulate("error_message", "The server has encountered an Internal Server Error.").toString())
+                    else -> throw KotlinDactylException.Exceptions.ServerException(JSONObject().accumulate("error_code", response.code).accumulate("error_message",  "KotlinDactyl encountered an error. Request responsecode ${response.code}").accumulate("error_content:", response.body!!.string()).toString())
                 }
             }
             else{ return response.body!!.string() }
